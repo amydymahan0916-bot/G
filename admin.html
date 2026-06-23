@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-
 <html lang="fa" dir="rtl">
 
 <head>
 
 <meta charset="UTF-8">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
 <title>
-KAIREN Admin
+𒆜𝗞𝗔𝗜𝗥𝗘𝗡 Admin
 </title>
 
+
 <link rel="stylesheet" href="admin.css">
+
 
 </head>
 
@@ -18,17 +22,41 @@ KAIREN Admin
 <body>
 
 
+
+<header>
+
 <h1>
-𒆜𝗞𝗔𝗜𝗥𝗘𝗡 Admin
+𒆜𝗞𝗔𝗜𝗥𝗘𝗡
 </h1>
 
 
-<div id="login">
+<h3>
+پنل مدیریت
+</h3>
 
 
-<input id="password"
+</header>
+
+
+
+
+
+
+<!-- ورود ادمین -->
+
+<section id="login">
+
+
+<h2>
+🔐 ورود مدیر
+</h2>
+
+
+<input 
+id="password"
 type="password"
-placeholder="رمز ورود">
+placeholder="رمز مدیریت">
+
 
 
 <button onclick="login()">
@@ -36,30 +64,44 @@ placeholder="رمز ورود">
 </button>
 
 
-</div>
+</section>
 
 
 
 
-<div id="panel" class="hide">
+
+
+
+
+<!-- پنل -->
+
+<section id="panel" class="hide">
+
 
 
 <h2>
-👥 مدیریت اعضا
+👥 کاربران
 </h2>
 
 
-<div id="list"></div>
 
+
+<div id="list">
 
 </div>
 
 
 
 
-<script src="members.js"></script>
+</section>
 
-<script src="admin.js"></script>
+
+
+
+
+
+<script type="module" src="admin.js"></script>
+
 
 
 </body>
