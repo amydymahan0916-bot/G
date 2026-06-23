@@ -1,69 +1,35 @@
-import { db } from "./firebase-config.js";
-
-import {
-    collection,
-    addDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-
-
-
-
 window.registerUser = async function(){
 
-
-    let name = 
+    let name =
     document.getElementById("username").value.trim();
 
-
-
     if(name.length < 2){
-
         alert("لطفاً اسم را وارد کنید");
-
         return;
-
     }
 
+    try{
 
+        await addDoc(
+            collection(db,"users"),
+            {
+                name:name,
+                bio:"عضو جدید",
+                score:0,
+                date:new Date()
+            }
+        );
 
+        localStorage.setItem("kairenUser",name);
 
-    await addDoc(
-        collection(db,"users"),
-        {
-            name:name,
-            bio:"عضو جدید",
-            score:0,
-            date:new Date()
-        }
-    );
+        alert("خوش آمدید " + name);
 
+        window.location.href="games.html";
 
+    }catch(err){
 
-    localStorage.setItem(
-        "kairenUser",
-        name
-    );
+        alert(err.message);
+        console.log(err);
 
-
-
-    alert(
-        "خوش آمدید "+name
-    );
-
-
-
-    window.location.href="games.html";
-
-};
-
-
-
-
-
-
-window.openAdmin=function(){
-
-    window.location.href="admin.html";
-
-};
+    }
+}
