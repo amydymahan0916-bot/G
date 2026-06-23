@@ -9,13 +9,12 @@
 <link rel="stylesheet" href="style.css">
 </head>
 
+
 <body>
 
 
-<header class="header">
-    <div class="logo">
-        𒆜𝗞𝗔𝗜𝗥𝗘𝗡
-    </div>
+<header>
+    𒆜𝗞𝗔𝗜𝗥𝗘𝗡
 </header>
 
 
@@ -27,38 +26,18 @@
 <h2>بازی ها</h2>
 
 
-<div class="games">
-
-
-<div class="game-card" onclick="openCardsGame()">
+<div class="main-game" onclick="openGame()">
 
     <img src="assets/card.png">
 
-    <h3>🎴 4 کارت</h3>
+    <h2>🎴 4 کارت</h2>
 
     <p>
-    8 مرحله<br>
-    ضریب‌های متغیر
+    8 مرحله | ضریب‌های مختلف
     </p>
 
 </div>
 
-
-
-<div class="game-card disabled">
-
-    <img src="assets/logo.png">
-
-    <h3>🎯 بازی جدید</h3>
-
-    <p>
-    به‌زودی...
-    </p>
-
-</div>
-
-
-</div>
 
 </section>
 
@@ -66,97 +45,83 @@
 
 
 
+<!-- صفحه بازی -->
 
-<!-- بازی 4 کارت -->
+<section id="gamePage" class="hide">
 
-<section id="cardsGame" class="hidden">
-
-
-<div class="top">
 
 <h2>🎴 4 کارت</h2>
 
-<div class="stats">
 
-<span>
+<div class="info">
+
+<p>
 مرحله:
-<b id="level">1</b>/8
-</span>
+<span id="level">1</span>/8
+</p>
 
 
-<span>
+<p>
 ضریب:
-<b id="multiplier">1.27</b>x
-</span>
-
-
-</div>
-
-
-<div class="progress">
-
-<div id="bar"></div>
-
-</div>
+<span id="multi">1.27</span>x
+</p>
 
 
 </div>
 
 
 
-
-<div class="money-box">
-
-<input 
-id="amount"
-type="number"
-placeholder="مبلغ ورود">
+<div class="cards">
 
 
-<button onclick="startGame()">
-شروع
+<div class="card" onclick="chooseCard(0)">
+    <div class="front">🎴</div>
+    <div class="back"></div>
+</div>
+
+
+<div class="card" onclick="chooseCard(1)">
+    <div class="front">🎴</div>
+    <div class="back"></div>
+</div>
+
+
+<div class="card" onclick="chooseCard(2)">
+    <div class="front">🎴</div>
+    <div class="back"></div>
+</div>
+
+
+<div class="card" onclick="chooseCard(3)">
+    <div class="front">🎴</div>
+    <div class="back"></div>
+</div>
+
+
+</div>
+
+
+
+<h2 id="message"></h2>
+
+
+
+<button onclick="nextLevel()">
+مرحله بعد
 </button>
 
 
-</div>
-
-
-
-
-
-<div id="cards" class="cards"></div>
-
-
-
-
-
-<div id="message"></div>
-
-
-
-
-<button class="cash"
-onclick="cashOut()">
+<button onclick="cashOut()">
 برداشت
 </button>
 
 
 
-<button onclick="restart()">
-شروع دوباره
-</button>
-
-
-
 </section>
-
-
-
 
 
 
 <script src="script.js"></script>
 
 </body>
-
-    </html>
+        </html>
