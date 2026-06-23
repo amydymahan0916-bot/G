@@ -5,12 +5,9 @@ import {
     addDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-
-
 window.registerUser = async function () {
 
-    const name =
-        document.getElementById("username").value.trim();
+    let name = document.getElementById("username").value.trim();
 
     if (name.length < 2) {
         alert("لطفاً اسم خود را وارد کنید");
@@ -19,15 +16,13 @@ window.registerUser = async function () {
 
     try {
 
-        await addDoc(
-            collection(db, "users"),
-            {
-                name: name,
-                bio: "عضو جدید",
-                score: 0,
-                date: new Date()
-            }
-        );
+        // 🔥 ذخیره در Firebase
+        await addDoc(collection(db, "users"), {
+            name: name,
+            bio: "عضو جدید",
+            score: 0,
+            createdAt: new Date()
+        });
 
         localStorage.setItem("kairenUser", name);
 
@@ -35,29 +30,22 @@ window.registerUser = async function () {
 
         window.location.href = "games.html";
 
-    } catch (err) {
+    } catch (error) {
 
-        console.error(err);
-        alert("خطا: " + err.message);
+        console.log("Firebase Error:", error);
+        alert("خطا در اتصال به دیتابیس ❌");
 
     }
-
 };
-
-
 
 window.openAdmin = function () {
 
-    const pass = prompt("رمز ادمین را وارد کنید");
+    let pass = prompt("رمز ادمین:");
 
     if (pass === "1234") {
-
         window.location.href = "admin.html";
-
     } else {
-
         alert("رمز اشتباه است");
-
     }
 
 };
