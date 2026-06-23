@@ -33,22 +33,25 @@
 
 
 
-<section id="home">
 
-<h2>🎮 بازی ها</h2>
+<!-- ورود کاربر -->
+
+<section id="loginBox">
 
 
-<div class="game-box" onclick="openGame()">
+<h2>
+👤 ورود به بازی
+</h2>
 
-<img src="assets/card.png">
 
-<h3>🎴 4 کارت</h3>
+<input 
+id="username"
+placeholder="اسم خود را وارد کنید">
 
-<p>
-8 مرحله | ضریب متغیر
-</p>
 
-</div>
+<button onclick="registerUser()">
+ورود
+</button>
 
 
 </section>
@@ -58,19 +61,71 @@
 
 
 
+
+<!-- صفحه اصلی -->
+
+<section id="home" class="hidden">
+
+
+<h2>
+🎮 بازی ها
+</h2>
+
+
+
+<div class="game-box" onclick="openGame()">
+
+
+
+<img src="assets/card.png">
+
+
+<h3>
+🎴 4 کارت
+</h3>
+
+
+<p>
+8 مرحله | ضریب متغیر
+</p>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- بازی -->
+
 <section id="game" class="hidden">
 
 
-<h2>🎴 4 کارت</h2>
+<h2>
+🎴 4 کارت
+</h2>
 
 
 
 <div class="wallet">
 
 💰 موجودی:
-<span id="balance">0</span>
+
+<span id="balance">
+0
+</span>
 
 </div>
+
+
 
 
 
@@ -82,22 +137,41 @@
 
 
 
+
+
 <div class="info">
 
 
 <span>
 مرحله:
-<b id="level">1</b>/8
+
+<b id="level">
+1
+</b>
+
+/8
+
 </span>
 
 
+
+
 <span>
+
 ضریب:
-<b id="multi">1.27</b>x
+
+<b id="multi">
+1.27
+</b>
+
+x
+
 </span>
 
 
 </div>
+
+
 
 
 
@@ -105,15 +179,30 @@
 
 <div class="profit-box">
 
+
 💰 مبلغ فعلی:
-<b id="winAmount">0</b>
+
+<b id="winAmount">
+0
+</b>
+
+
 
 <br>
 
-📈 سود شما:
-<b id="profit">0</b>
+
+
+📈 سود:
+
+<b id="profit">
+0
+</b>
+
+
 
 </div>
+
+
 
 
 
@@ -126,9 +215,15 @@ placeholder="مبلغ ورود">
 
 
 
+
+
 <button onclick="startGame()">
+
 شروع بازی
+
 </button>
+
+
 
 
 
@@ -138,16 +233,29 @@ placeholder="مبلغ ورود">
 <div class="cards">
 
 
-<div class="card">🎴</div>
+<div class="card">
+🎴
+</div>
 
-<div class="card">🎴</div>
 
-<div class="card">🎴</div>
+<div class="card">
+🎴
+</div>
 
-<div class="card">🎴</div>
+
+<div class="card">
+🎴
+</div>
+
+
+<div class="card">
+🎴
+</div>
 
 
 </div>
+
+
 
 
 
@@ -159,14 +267,23 @@ placeholder="مبلغ ورود">
 
 
 
+
+
 <button onclick="cashOut()">
+
 💰 برداشت
+
 </button>
+
+
 
 
 <button onclick="restart()">
+
 🔄 ریست
+
 </button>
+
 
 
 
@@ -177,10 +294,10 @@ placeholder="مبلغ ورود">
 
 
 
-<script src="members.js"></script>
 
-<script src="script.js"></script>
 
+
+<script type="module" src="script.js"></script>
 
 
 </body>
