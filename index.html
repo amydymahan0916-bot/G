@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</title>
 
 <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
+
 <header>
+
+<div>
 𒆜𝗞𝗔𝗜𝗥𝗘𝗡
+</div>
+
 
 <button class="admin-btn" onclick="openAdmin()">
 🔐 ادمین
 </button>
 
+
 </header>
+
+
 
 
 <section id="home">
@@ -26,7 +38,7 @@
 <h2>🎮 بازی ها</h2>
 
 
-<div class="main-game" onclick="openGame()">
+<div class="game-box" onclick="openGame()">
 
 <img src="assets/card.png">
 
@@ -45,10 +57,12 @@
 
 
 
-<section id="gamePage" class="hide">
+
+<section id="game" class="hidden">
 
 
 <h2>🎴 4 کارت</h2>
+
 
 
 <div class="wallet">
@@ -60,33 +74,56 @@
 
 
 
-<button class="charge" onclick="goCharge()">
+<button onclick="goCharge()">
 💳 شارژ حساب
 </button>
 
 
 
+
+
 <div class="info">
 
-<p>
+
+<span>
 مرحله:
-<span id="level">1</span>/8
-</p>
+<b id="level">1</b>/8
+</span>
 
 
-<p>
+<span>
 ضریب:
-<span id="multi">1.27</span>x
-</p>
+<b id="multi">1.27</b>x
+</span>
 
 
 </div>
 
 
 
-<input id="amount"
+
+
+<div class="profit-box">
+
+💰 مبلغ فعلی:
+<b id="winAmount">0</b>
+
+<br>
+
+📈 سود شما:
+<b id="profit">0</b>
+
+</div>
+
+
+
+
+
+<input 
+id="amount"
 type="number"
 placeholder="مبلغ ورود">
+
 
 
 <button onclick="startGame()">
@@ -96,18 +133,29 @@ placeholder="مبلغ ورود">
 
 
 
+
+
 <div class="cards">
 
-<div class="card"></div>
-<div class="card"></div>
-<div class="card"></div>
-<div class="card"></div>
+
+<div class="card">🎴</div>
+
+<div class="card">🎴</div>
+
+<div class="card">🎴</div>
+
+<div class="card">🎴</div>
+
 
 </div>
 
 
 
+
+
 <h2 id="message"></h2>
+
+
 
 
 
@@ -121,14 +169,20 @@ placeholder="مبلغ ورود">
 </button>
 
 
+
 </section>
 
 
 
 
+
+
 <script src="members.js"></script>
+
 <script src="script.js"></script>
 
 
+
 </body>
+
 </html>
