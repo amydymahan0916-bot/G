@@ -1,291 +1,74 @@
-import { db } from "./firebase-config.js";
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 
+<head>
 
-import {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-collection,
+<title>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</title>
 
-getDocs,
+<link rel="stylesheet" href="style.css">
 
-doc,
+</head>
 
-updateDoc,
 
-deleteDoc
+<body>
 
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+<header>
 
+<h1>
+𒆜𝗞𝗔𝗜𝗥𝗘𝗡
+</h1>
 
 
-
-const adminPassword = "1234";
-
-
-
-
-
-
-
-window.login = function(){
-
-
-
-let pass =
-
-document.getElementById("password").value;
-
-
-
-
-if(pass === adminPassword){
-
-
-
-document.getElementById("login")
-.style.display="none";
-
-
-
-document.getElementById("panel")
-.classList.remove("hide");
-
-
-
-loadUsers();
-
-
-
-}
-
-else{
-
-
-alert("رمز اشتباه است");
-
-
-}
-
-
-
-};
-
-
-
-
-
-
-
-
-
-async function loadUsers(){
-
-
-
-let list =
-
-document.getElementById("list");
-
-
-
-list.innerHTML="";
-
-
-
-
-
-let users =
-
-await getDocs(
-collection(db,"users")
-);
-
-
-
-
-
-users.forEach((item)=>{
-
-
-
-let user = item.data();
-
-
-
-
-list.innerHTML += `
-
-
-<div class="member">
-
-
-<h3>
-👤 ${user.name}
-</h3>
-
-
-
-<p>
-📝 ${user.bio || "بدون بیو"}
-</p>
-
-
-
-<p>
-⭐ امتیاز:
-
-<span>
-${user.score || 0}
-</span>
-
-</p>
-
-
-
-
-<input
-
-id="score-${item.id}"
-
-type="number"
-
-placeholder="امتیاز جدید">
-
-
-
-
-
-<br>
-
-
-<button onclick="changeScore('${item.id}')">
-
-تغییر امتیاز
-
+<button onclick="openAdmin()" class="admin-btn">
+🔐 ادمین
 </button>
 
 
+</header>
 
 
-<button onclick="removeUser('${item.id}')">
 
-حذف
 
+
+<div class="container">
+
+
+<div class="login-box">
+
+
+<h2>
+👤 ورود
+</h2>
+
+
+<input 
+id="username"
+placeholder="اسم خود را وارد کنید">
+
+
+
+<button onclick="registerUser()">
+ورود به سایت
 </button>
+
+
+</div>
 
 
 
 </div>
 
 
-`;
 
 
 
-});
+<script type="module" src="script.js"></script>
 
 
+</body>
 
-}
-
-
-
-
-
-
-
-
-
-window.changeScore = async function(id){
-
-
-
-let value =
-
-
-Number(
-
-document.getElementById(
-"score-"+id
-).value
-
-);
-
-
-
-
-if(!value){
-
-alert("امتیاز وارد کنید");
-
-return;
-
-}
-
-
-
-
-
-await updateDoc(
-
-doc(db,"users",id),
-
-{
-
-score:value
-
-}
-
-);
-
-
-
-alert("امتیاز تغییر کرد");
-
-
-loadUsers();
-
-
-
-};
-
-
-
-
-
-
-
-
-
-window.removeUser = async function(id){
-
-
-
-let ok = confirm(
-"حذف شود؟"
-);
-
-
-
-if(!ok)
-return;
-
-
-
-
-await deleteDoc(
-
-doc(db,"users",id)
-
-);
-
-
-
-alert("کاربر حذف شد");
-
-
-loadUsers();
-
-
-
-};
+</html>
