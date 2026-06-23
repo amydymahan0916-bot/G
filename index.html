@@ -18,44 +18,36 @@
 
 <header>
 
-<div>
-𒆜𝗞𝗔𝗜𝗥𝗘𝗡
-</div>
-
+<h1>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</h1>
 
 <button class="admin-btn" onclick="openAdmin()">
 🔐 ادمین
 </button>
 
-
 </header>
-
-
 
 
 
 <!-- ورود کاربر -->
 
-<section id="loginBox">
+<div id="loginBox">
 
 
-<h2>
-👤 ورود به بازی
-</h2>
+<h2>👤 ورود</h2>
 
 
 <input 
 id="username"
+type="text"
 placeholder="اسم خود را وارد کنید">
 
 
 <button onclick="registerUser()">
-ورود
+ورود به سایت
 </button>
 
 
-</section>
-
+</div>
 
 
 
@@ -64,7 +56,7 @@ placeholder="اسم خود را وارد کنید">
 
 <!-- صفحه اصلی -->
 
-<section id="home" class="hidden">
+<div id="home" class="hide">
 
 
 <h2>
@@ -77,12 +69,16 @@ placeholder="اسم خود را وارد کنید">
 
 
 
-<img src="assets/card.png">
+<div class="card-icon">
+🎴
+</div>
+
 
 
 <h3>
-🎴 4 کارت
+4 کارت
 </h3>
+
 
 
 <p>
@@ -90,28 +86,29 @@ placeholder="اسم خود را وارد کنید">
 </p>
 
 
+
+</div>
+
+
 </div>
 
 
 
-</section>
 
 
 
 
 
 
+<!-- صفحه بازی -->
 
-
-
-<!-- بازی -->
-
-<section id="game" class="hidden">
+<div id="game" class="hide">
 
 
 <h2>
-🎴 4 کارت
+🎴 بازی 4 کارت
 </h2>
+
 
 
 
@@ -124,7 +121,6 @@ placeholder="اسم خود را وارد کنید">
 </span>
 
 </div>
-
 
 
 
@@ -142,35 +138,34 @@ placeholder="اسم خود را وارد کنید">
 <div class="info">
 
 
-<span>
+<div>
 مرحله:
 
-<b id="level">
+<span id="level">
 1
-</b>
+</span>
 
 /8
 
-</span>
+</div>
 
 
 
-
-<span>
+<div>
 
 ضریب:
 
-<b id="multi">
+<span id="multi">
 1.27
-</b>
+</span>
 
 x
 
-</span>
+</div>
+
 
 
 </div>
-
 
 
 
@@ -182,21 +177,28 @@ x
 
 💰 مبلغ فعلی:
 
+<br>
+
 <b id="winAmount">
 0
 </b>
 
+تومان
 
+
+
+<br><br>
+
+
+📈 سود شما:
 
 <br>
-
-
-
-📈 سود:
 
 <b id="profit">
 0
 </b>
+
+تومان
 
 
 
@@ -215,12 +217,8 @@ placeholder="مبلغ ورود">
 
 
 
-
-
 <button onclick="startGame()">
-
 شروع بازی
-
 </button>
 
 
@@ -268,28 +266,20 @@ placeholder="مبلغ ورود">
 
 
 
-
 <button onclick="cashOut()">
-
 💰 برداشت
-
 </button>
-
 
 
 
 <button onclick="restart()">
-
 🔄 ریست
-
 </button>
 
 
 
 
-</section>
-
-
+</div>
 
 
 
@@ -302,4 +292,4 @@ placeholder="مبلغ ورود">
 
 </body>
 
-</html>
+  </html>
