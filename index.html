@@ -3,49 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    𒆜𝗞𝗔𝗜𝗥𝗘𝗡
+
+<header class="header">
+    <div class="logo">
+        𒆜𝗞𝗔𝗜𝗥𝗘𝗡
+    </div>
 </header>
 
-<section class="games">
 
-<div class="game-box" onclick="openGame()">
-    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png">
-    <h3>4 کارت</h3>
+
+<!-- صفحه اصلی -->
+
+<section id="home">
+
+<h2>بازی ها</h2>
+
+
+<div class="games">
+
+
+<div class="game-card" onclick="openCardsGame()">
+
+    <img src="assets/card.png">
+
+    <h3>🎴 4 کارت</h3>
+
+    <p>
+    8 مرحله<br>
+    ضریب‌های متغیر
+    </p>
+
+</div>
+
+
+
+<div class="game-card disabled">
+
+    <img src="assets/logo.png">
+
+    <h3>🎯 بازی جدید</h3>
+
+    <p>
+    به‌زودی...
+    </p>
+
+</div>
+
+
 </div>
 
 </section>
 
 
-<div class="game" id="game">
 
-<h2>🎴 بازی 4 کارت</h2>
 
-<div class="info">
-    <span>مرحله: <b id="level">1</b>/8</span>
-    <span>ضریب: <b id="multi">1.27</b>x</span>
+
+
+<!-- بازی 4 کارت -->
+
+<section id="cardsGame" class="hidden">
+
+
+<div class="top">
+
+<h2>🎴 4 کارت</h2>
+
+<div class="stats">
+
+<span>
+مرحله:
+<b id="level">1</b>/8
+</span>
+
+
+<span>
+ضریب:
+<b id="multiplier">1.27</b>x
+</span>
+
+
 </div>
 
-<input id="money" type="number" placeholder="مبلغ ورود (حداقل 10)">
 
-<button onclick="startGame()">شروع بازی</button>
+<div class="progress">
 
-<div class="cards" id="cards"></div>
-
-<h2 id="result"></h2>
-
-<button class="cash" onclick="cashOut()">برداشت پول</button>
+<div id="bar"></div>
 
 </div>
+
+
+</div>
+
+
+
+
+<div class="money-box">
+
+<input 
+id="amount"
+type="number"
+placeholder="مبلغ ورود">
+
+
+<button onclick="startGame()">
+شروع
+</button>
+
+
+</div>
+
+
+
+
+
+<div id="cards" class="cards"></div>
+
+
+
+
+
+<div id="message"></div>
+
+
+
+
+<button class="cash"
+onclick="cashOut()">
+برداشت
+</button>
+
+
+
+<button onclick="restart()">
+شروع دوباره
+</button>
+
+
+
+</section>
+
+
+
+
 
 
 <script src="script.js"></script>
 
 </body>
-</html>
+
+    </html>
