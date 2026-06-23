@@ -1,13 +1,4 @@
-const multipliers = [
-    1.27,
-    1.61,
-    2,
-    2.5,
-    3.2,
-    4.1,
-    5.2,
-    6.7
-];
+const multipliers = [1.27, 1.61, 2, 2.5, 3.2, 4.1, 5.2, 6.7];
 
 let level = 0;
 let currentMoney = 0;
@@ -16,34 +7,64 @@ let bombIndex = 0;
 let gameActive = false;
 let selected = false;
 
+// 💳 کیف پول (ذخیره دائمی)
+let balance = Number(localStorage.getItem("balance")) || 0;
 
 
-function openGame(){
-    document.getElementById("home").classList.add("hide");
-    document.getElementById("gamePage").classList.remove("hide");
-    startGame();
+// -------------------- UI --------------------
+
+function updateUI(){
+
+    document.getElementById("level").innerText =
+    Math.min(level + 1, 8);
+
+    document.getElementById("multi").innerText =
+    multipliers[level] || 6.7;
+
 }
 
 
+// -------------------- شارژ حساب --------------------
+
+function goCharge(){
+
+    window.open("https://rubika.ir/YOUR_ID", "_blank");
+
+}
+
+
+// -------------------- شروع بازی --------------------
 
 function startGame(){
 
-    baseMoney = Number(prompt("مبلغ ورود (حداقل 10):"));
+    let input = Number(document.getElementById("amount").value);
 
-    if(baseMoney < 10 || isNaN(baseMoney)){
-        alert("مبلغ نامعتبر!");
+    if(input < 10 || isNaN(input)){
+        alert("حداقل مبلغ ۱۰ تومان است");
         return;
     }
 
+    if(balance < input){
+        alert("❌ موجودی شما کافی نیست\n👉 لطفا به بخش شارژ حساب مراجعه کنید");
+        return;
+    }
+
+    balance -= input;
+    saveBalance();
+
+    baseMoney = input;
+    currentMoney = input;
     level = 0;
-    currentMoney = baseMoney;
     gameActive = true;
 
-    updateUI();
+    document.getElementById("message").innerText = "";
+
     createCards();
+    updateUI();
 }
 
 
+// -------------------- ساخت کارت‌ها --------------------
 
 function createCards(){
 
@@ -69,8 +90,8 @@ function createCards(){
 
                     card.classList.add("flip","lose");
 
-                    document.getElementById("message").innerHTML =
-                    "💣 باختی! همه پول از بین رفت";
+                    document.getElementById("message").innerText =
+                    "💣 باختی! همه پول رفت";
 
                     currentMoney = 0;
                     gameActive = false;
@@ -83,7 +104,7 @@ function createCards(){
 
                     currentMoney *= multi;
 
-                    document.getElementById("message").innerHTML =
+                    document.getElementById("message").innerText =
                     "💰 بردی! ضریب " + multi + "x";
 
                     level++;
@@ -92,11 +113,10 @@ function createCards(){
 
                     if(level >= 8){
 
-                        document.getElementById("message").innerHTML =
+                        document.getElementById("message").innerText =
                         "🏆 تموم کردی!";
 
                         gameActive = false;
-
                     }
 
                 }
@@ -110,42 +130,41 @@ function createCards(){
 }
 
 
-
-function nextLevel(){
-
-    if(!gameActive){
-        alert("بازی تمام شده");
-        return;
-    }
-
-    if(level >= 8) return;
-
-    createCards();
-
-}
-
-
+// -------------------- برداشت --------------------
 
 function cashOut(){
 
     if(currentMoney <= 0){
-        alert("پولی برای برداشت نیست");
+        alert("❌ پولی برای برداشت نیست");
         return;
     }
 
-    alert("💰 برداشت شد: " + Math.floor(currentMoney) + " تومان");
+    balance += Math.floor(currentMoney);
+    saveBalance();
+
+    alert("💰 واریز به کیف پول: " + Math.floor(currentMoney));
 
     gameActive = false;
+
 }
 
 
+// -------------------- ریست --------------------
 
-function updateUI(){
+function restart(){
 
-    document.getElementById("level").innerText =
-    Math.min(level + 1, 8);
+    level = 0;
+    currentMoney = 0;
+    gameActive = false;
 
-    document.getElementById("multi").innerText =
-    multipliers[level] || 6.7;
+    document.getElementById("message").innerText = "";
+    updateUI();
 
-              }
+}
+
+
+// -------------------- ذخیره کیف پول --------------------
+
+function saveBalance(){
+    localStorage.setItem("balance", balance);
+                              }
