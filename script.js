@@ -1,3 +1,35 @@
+import { db } from "./firebase-config.js";
+
+import {
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    updateDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+
+
+
+
+let currentUser = "";
+
+let balance = 0;
+
+let level = 0;
+
+let currentMoney = 0;
+
+let startAmount = 0;
+
+let gameActive = false;
+
+let selected = false;
+
+let bombIndex = 0;
+
+
+
 const multipliers = [
     1.27,
     1.61,
@@ -10,60 +42,63 @@ const multipliers = [
 ];
 
 
-let level = 0;
-
-let currentMoney = 0;
-
-let startAmount = 0;
-
-let balance = Number(localStorage.getItem("balance")) || 0;
-
-let bombIndex = 0;
-
-let gameActive = false;
-
-let selected = false;
-
-
-
-
-// نمایش موجودی
-
-updateBalance();
 
 
 
 
 
-function updateBalance(){
+// ثبت کاربر
 
-    let b = document.getElementById("balance");
+window.registerUser = async function(){
 
-    if(b){
 
-        b.innerText =
-        balance.toLocaleString();
+    let name =
+    document.getElementById("username").value.trim();
+
+
+
+    if(name.length < 2){
+
+        alert("اسم را درست وارد کنید");
+
+        return;
 
     }
 
-}
+
+
+    currentUser = name;
 
 
 
+    await addDoc(
+        collection(db,"users"),
+        {
+            name:name,
+            phone:"Unknown",
+            bio:"عضو جدید",
+            score:0,
+            createdAt:new Date()
+        }
+    );
 
 
 
+    alert(
+    "خوش آمدید "+name
+    );
 
-// ورود به بازی
 
-function openGame(){
 
-    document.getElementById("home")
+    document.getElementById("loginBox")
     .classList.add("hidden");
 
 
-    document.getElementById("game")
+
+    document.getElementById("home")
     .classList.remove("hidden");
+
+
 
 }
 
@@ -72,31 +107,60 @@ function openGame(){
 
 
 
-// شارژ حساب
 
-function goCharge(){
+
+
+// باز کردن بازی
+
+window.openGame=function(){
+
+
+document.getElementById("home")
+.classList.add("hidden");
+
+
+document.getElementById("game")
+.classList.remove("hidden");
+
+
+}
+
+
+
+
+
+
+
+
+// ادمین
+
+window.openAdmin=function(){
+
+    location.href="admin.html";
+
+}
+
+
+
+
+
+
+
+
+// شارژ
+
+window.goCharge=function(){
+
 
     window.open(
     "https://rubika.ir/Kairen_Management",
     "_blank"
     );
 
-}
-
-
-
-
-
-
-
-// پنل ادمین
-
-function openAdmin(){
-
-    window.location.href =
-    "admin.html";
 
 }
+
+
 
 
 
@@ -106,78 +170,44 @@ function openAdmin(){
 
 // شروع بازی
 
-function startGame(){
-
-
-    let amount =
-    Number(document.getElementById("amount").value);
+window.startGame=function(){
 
 
 
-    if(amount < 10 || isNaN(amount)){
-
-
-        alert(
-        "حداقل مبلغ ورود ۱۰ تومان است"
-        );
-
-        return;
-
-    }
+let amount =
+Number(
+document.getElementById("amount").value
+);
 
 
 
+if(amount<10){
 
+alert("حداقل ورود ۱۰ تومان");
 
-    if(balance < amount){
+return;
 
-
-        alert(
-        "❌ موجودی شما کافی نیست\nلطفا به قسمت شارژ حساب مراجعه کنید"
-        );
-
-
-        return;
-
-    }
+}
 
 
 
+startAmount = amount;
+
+currentMoney = amount;
+
+level=0;
 
 
-
-    balance -= amount;
-
-
-    saveBalance();
+gameActive=true;
 
 
-    updateBalance();
+createCards();
 
 
+updateProfit();
 
 
-
-    startAmount = amount;
-
-    currentMoney = amount;
-
-
-    level = 0;
-
-
-    gameActive = true;
-
-
-
-    updateProfit();
-
-
-    updateInfo();
-
-
-    createCards();
-
+updateInfo();
 
 
 }
@@ -188,144 +218,118 @@ function startGame(){
 
 
 
-// ساخت کارت ها
+
 
 function createCards(){
 
 
-    selected = false;
+selected=false;
 
 
-    let cards =
-    document.querySelectorAll(".card");
+let cards =
+document.querySelectorAll(".card");
 
 
 
-    bombIndex =
-    Math.floor(Math.random()*4);
+bombIndex =
+Math.floor(Math.random()*4);
 
 
 
+cards.forEach((card,index)=>{
 
-    cards.forEach((card,index)=>{
 
+card.innerHTML="🎴";
 
-        card.innerHTML="🎴";
+card.className="card";
 
 
-        card.className="card";
 
+card.onclick=function(){
 
 
-        card.onclick=function(){
 
+if(!gameActive || selected)
+return;
 
 
-            if(!gameActive || selected)
-            return;
 
+selected=true;
 
 
-            selected=true;
 
+if(index===bombIndex){
 
 
+card.innerHTML="💣";
 
 
-            if(index === bombIndex){
+card.classList.add("lose");
 
 
-                card.classList.add("lose");
+currentMoney=0;
 
-                card.innerHTML="💣";
 
+document.getElementById("message")
+.innerText=
+"💥 بمب خورد!";
 
-                document.getElementById("message")
-                .innerText=
-                "💥 بمب خورد! باختی";
 
+updateProfit();
 
 
-                currentMoney=0;
+gameActive=false;
 
 
-                updateProfit();
 
+}
 
-                gameActive=false;
 
 
+else{
 
-            }
 
+let multi =
+multipliers[level];
 
 
+currentMoney =
+Math.floor(
+currentMoney*multi
+);
 
-            else{
 
 
-                card.classList.add("win");
+card.innerHTML="💰";
 
-                card.innerHTML="💰";
+card.classList.add("win");
 
 
 
-                let multi =
-                multipliers[level];
+document.getElementById("message")
+.innerText=
+"بردی "+multi+"x";
 
 
 
-                currentMoney =
-                Math.floor(
-                currentMoney * multi
-                );
+level++;
 
 
+updateProfit();
 
+updateInfo();
 
-                document.getElementById("message")
-                .innerText =
-                "🎉 بردی! ضریب "+multi+"x";
 
 
+}
 
 
-                level++;
 
+}
 
 
 
-                updateProfit();
-
-                updateInfo();
-
-
-
-
-
-                if(level>=8){
-
-
-                    document.getElementById("message")
-                    .innerText=
-                    "🏆 تمام مراحل کامل شد";
-
-
-                    gameActive=false;
-
-
-                }
-
-
-            }
-
-
-
-        };
-
-
-
-    });
+});
 
 
 }
@@ -337,46 +341,19 @@ function createCards(){
 
 
 
-// نمایش سود
 
 function updateProfit(){
 
 
-    let amount =
-    document.getElementById("winAmount");
+document.getElementById("winAmount")
+.innerText =
+currentMoney.toLocaleString();
 
 
-    let profit =
-    document.getElementById("profit");
-
-
-
-    if(amount){
-
-        amount.innerText =
-        currentMoney.toLocaleString()
-        +" تومان";
-
-    }
-
-
-
-
-
-    if(profit){
-
-
-        let p =
-        currentMoney-startAmount;
-
-
-
-        profit.innerText =
-        p.toLocaleString()
-        +" تومان";
-
-
-    }
+document.getElementById("profit")
+.innerText =
+(currentMoney-startAmount)
+.toLocaleString();
 
 
 }
@@ -387,127 +364,19 @@ function updateProfit(){
 
 
 
-// برداشت
-
-function cashOut(){
-
-
-    if(currentMoney<=0){
-
-
-        alert(
-        "مبلغی برای برداشت نیست"
-        );
-
-
-        return;
-
-    }
-
-
-
-
-
-    balance += currentMoney;
-
-
-
-    saveBalance();
-
-
-
-    updateBalance();
-
-
-
-
-
-    alert(
-    "💰 دریافت شد: "
-    +
-    currentMoney.toLocaleString()
-    +
-    " تومان"
-    );
-
-
-
-    currentMoney=0;
-
-    gameActive=false;
-
-
-
-}
-
-
-
-
-
-
-
-// ریست
-
-function restart(){
-
-
-    level=0;
-
-    currentMoney=0;
-
-    startAmount=0;
-
-    gameActive=false;
-
-
-
-    updateProfit();
-
-    updateInfo();
-
-
-
-    document.getElementById("message")
-    .innerText="";
-
-
-}
-
-
-
-
-
-
-
-// اطلاعات مرحله
 
 function updateInfo(){
 
 
-    let l =
-    document.getElementById("level");
-
-
-    let m =
-    document.getElementById("multi");
+document.getElementById("level")
+.innerText =
+Math.min(level+1,8);
 
 
 
-    if(l){
-
-        l.innerText =
-        Math.min(level+1,8);
-
-    }
-
-
-
-    if(m){
-
-        m.innerText =
-        multipliers[level] || 6.7;
-
-    }
+document.getElementById("multi")
+.innerText =
+multipliers[level] || 6.7;
 
 
 }
@@ -517,11 +386,47 @@ function updateInfo(){
 
 
 
-function saveBalance(){
 
-    localStorage.setItem(
-    "balance",
-    balance
-    );
+
+window.cashOut=function(){
+
+
+alert(
+"برداشت: "+
+currentMoney+
+" تومان"
+);
+
+
+currentMoney=0;
+
+
+gameActive=false;
+
 
 }
+
+
+
+
+
+
+
+
+window.restart=function(){
+
+
+level=0;
+
+currentMoney=0;
+
+gameActive=false;
+
+
+document.getElementById("message")
+.innerText="";
+
+
+updateProfit();
+
+    }
