@@ -1,0 +1,46 @@
+body{
+
+background:#050505;
+color:white;
+font-family:tahoma;
+text-align:center;
+
+}
+
+
+input,button{
+
+padding:12px;
+margin:5px;
+border-radius:10px;
+border:none;
+
+}
+
+
+button{
+
+background:#ffd700;
+cursor:pointer;
+
+}
+
+
+
+.member{
+
+background:#111;
+border:1px solid #333;
+margin:15px auto;
+padding:15px;
+border-radius:15px;
+width:300px;
+
+}
+
+
+.member input{
+
+width:90%;
+
+}
