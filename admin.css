@@ -1,46 +1,92 @@
+*{
+
+box-sizing:border-box;
+font-family:tahoma;
+
+}
+
+
 body{
 
 background:#050505;
+
 color:white;
-font-family:tahoma;
+
 text-align:center;
 
 }
 
 
-input,button{
 
-padding:12px;
-margin:5px;
-border-radius:10px;
-border:none;
+h1{
+
+color:#ffd700;
 
 }
+
+
+
+input{
+
+padding:12px;
+
+border-radius:10px;
+
+border:none;
+
+margin:10px;
+
+}
+
 
 
 button{
 
+padding:12px 20px;
+
+border:none;
+
+border-radius:10px;
+
 background:#ffd700;
+
 cursor:pointer;
 
+font-weight:bold;
+
 }
+
 
 
 
 .member{
 
 background:#111;
+
 border:1px solid #333;
+
+border-radius:20px;
+
+width:320px;
+
 margin:15px auto;
+
 padding:15px;
-border-radius:15px;
-width:300px;
 
 }
+
 
 
 .member input{
 
 width:90%;
+
+}
+
+
+
+.hide{
+
+display:none;
 
 }
