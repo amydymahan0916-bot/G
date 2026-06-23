@@ -3,28 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</title>
-
 <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
-
 
 <header>
     𒆜𝗞𝗔𝗜𝗥𝗘𝗡
 </header>
 
 
-
 <!-- صفحه اصلی -->
-
 <section id="home">
 
 <h2>بازی ها</h2>
-
 
 <div class="main-game" onclick="openGame()">
 
@@ -32,96 +25,63 @@
 
     <h2>🎴 4 کارت</h2>
 
-    <p>
-    8 مرحله | ضریب‌های مختلف
-    </p>
+    <p>8 مرحله | ضریب بالا</p>
 
 </div>
-
 
 </section>
 
 
-
-
-
 <!-- صفحه بازی -->
-
 <section id="gamePage" class="hide">
-
 
 <h2>🎴 4 کارت</h2>
 
-
 <div class="info">
+    <p>مرحله: <span id="level">1</span>/8</p>
+    <p>ضریب: <span id="multi">1.27</span>x</p>
+</div>
 
-<p>
-مرحله:
-<span id="level">1</span>/8
-</p>
-
-
-<p>
-ضریب:
-<span id="multi">1.27</span>x
-</p>
-
-
+<!-- 💳 کیف پول -->
+<div class="wallet">
+    💰 موجودی: <span id="balance">0</span> تومان
 </div>
 
 
+<!-- شارژ حساب -->
+<button class="charge" onclick="goCharge()">
+💳 شارژ حساب
+</button>
 
+
+<!-- ورودی -->
+<div class="inputBox">
+    <input id="amount" type="number" placeholder="مبلغ ورود (حداقل 10)">
+    <button onclick="startGame()">شروع</button>
+</div>
+
+
+<!-- کارت‌ها -->
 <div class="cards">
 
-
-<div class="card" onclick="chooseCard(0)">
-    <div class="front">🎴</div>
-    <div class="back"></div>
-</div>
-
-
-<div class="card" onclick="chooseCard(1)">
-    <div class="front">🎴</div>
-    <div class="back"></div>
-</div>
-
-
-<div class="card" onclick="chooseCard(2)">
-    <div class="front">🎴</div>
-    <div class="back"></div>
-</div>
-
-
-<div class="card" onclick="chooseCard(3)">
-    <div class="front">🎴</div>
-    <div class="back"></div>
-</div>
-
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
 
 </div>
-
 
 
 <h2 id="message"></h2>
 
 
-
-<button onclick="nextLevel()">
-مرحله بعد
-</button>
-
-
-<button onclick="cashOut()">
-برداشت
-</button>
-
-
+<button onclick="cashOut()">برداشت</button>
+<button onclick="restart()">ریست</button>
 
 </section>
-
 
 
 <script src="script.js"></script>
 
 </body>
-        </html>
+</html>
