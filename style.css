@@ -1,0 +1,159 @@
+*{
+    box-sizing:border-box;
+    font-family:Tahoma, sans-serif;
+}
+
+body{
+    margin:0;
+    background:#080808;
+    color:white;
+    text-align:center;
+}
+
+header{
+    padding:20px;
+    font-size:32px;
+    font-weight:bold;
+    background:linear-gradient(90deg,#111,#222);
+    color:#00ffd5;
+    box-shadow:0 0 20px #00ffd5;
+}
+
+.games{
+    display:flex;
+    justify-content:center;
+    padding:30px;
+}
+
+.game-box{
+    width:180px;
+    background:#151515;
+    border-radius:20px;
+    padding:15px;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 0 15px #222;
+}
+
+.game-box:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 25px #00ffd5;
+}
+
+.game-box img{
+    width:100px;
+    height:100px;
+}
+
+.game-box h3{
+    margin:10px;
+}
+
+
+.game{
+    display:none;
+    padding:20px;
+}
+
+
+.info{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin:20px;
+    font-size:18px;
+}
+
+
+input{
+    width:220px;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    text-align:center;
+    font-size:17px;
+}
+
+
+button{
+    margin:10px;
+    padding:12px 25px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:#00ffd5;
+    font-weight:bold;
+}
+
+
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:30px;
+}
+
+
+.card{
+    width:100px;
+    height:140px;
+    background:#222;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    cursor:pointer;
+    transition:.4s;
+    border:2px solid #00ffd5;
+    overflow:hidden;
+}
+
+
+.card:hover{
+    transform:rotateY(20deg) scale(1.08);
+}
+
+
+.win{
+    background:#0b8f4d;
+    animation:money .7s;
+}
+
+
+.lose{
+    background:#a00000;
+    animation:bomb .7s;
+}
+
+
+@keyframes money{
+    from{
+        transform:scale(.5);
+    }
+    to{
+        transform:scale(1);
+    }
+}
+
+
+@keyframes bomb{
+    0%{
+        transform:rotate(0);
+    }
+    25%{
+        transform:rotate(15deg);
+    }
+    50%{
+        transform:rotate(-15deg);
+    }
+    100%{
+        transform:rotate(0);
+    }
+}
+
+
+.cash{
+    background:#ffc400;
+}
