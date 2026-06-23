@@ -1,295 +1,291 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</title>
-
-<link rel="stylesheet" href="style.css">
-
-</head>
+import { db } from "./firebase-config.js";
 
 
-<body>
+import {
 
+collection,
 
-<header>
+getDocs,
 
-<h1>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</h1>
+doc,
 
-<button class="admin-btn" onclick="openAdmin()">
-🔐 ادمین
-</button>
+updateDoc,
 
-</header>
+deleteDoc
+
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
 
-<!-- ورود کاربر -->
-
-<div id="loginBox">
 
 
-<h2>👤 ورود</h2>
-
-
-<input 
-id="username"
-type="text"
-placeholder="اسم خود را وارد کنید">
-
-
-<button onclick="registerUser()">
-ورود به سایت
-</button>
-
-
-</div>
+const adminPassword = "1234";
 
 
 
 
 
 
-<!-- صفحه اصلی -->
 
-<div id="home" class="hide">
-
-
-<h2>
-🎮 بازی ها
-</h2>
+window.login = function(){
 
 
 
-<div class="game-box" onclick="openGame()">
+let pass =
+
+document.getElementById("password").value;
 
 
 
-<div class="card-icon">
-🎴
-</div>
 
+if(pass === adminPassword){
+
+
+
+document.getElementById("login")
+.style.display="none";
+
+
+
+document.getElementById("panel")
+.classList.remove("hide");
+
+
+
+loadUsers();
+
+
+
+}
+
+else{
+
+
+alert("رمز اشتباه است");
+
+
+}
+
+
+
+};
+
+
+
+
+
+
+
+
+
+async function loadUsers(){
+
+
+
+let list =
+
+document.getElementById("list");
+
+
+
+list.innerHTML="";
+
+
+
+
+
+let users =
+
+await getDocs(
+collection(db,"users")
+);
+
+
+
+
+
+users.forEach((item)=>{
+
+
+
+let user = item.data();
+
+
+
+
+list.innerHTML += `
+
+
+<div class="member">
 
 
 <h3>
-4 کارت
+👤 ${user.name}
 </h3>
 
 
 
 <p>
-8 مرحله | ضریب متغیر
+📝 ${user.bio || "بدون بیو"}
 </p>
 
 
 
-</div>
+<p>
+⭐ امتیاز:
 
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- صفحه بازی -->
-
-<div id="game" class="hide">
-
-
-<h2>
-🎴 بازی 4 کارت
-</h2>
-
-
-
-
-<div class="wallet">
-
-💰 موجودی:
-
-<span id="balance">
-0
+<span>
+${user.score || 0}
 </span>
 
-</div>
+</p>
 
 
 
 
-<button onclick="goCharge()">
-💳 شارژ حساب
-</button>
+<input
 
+id="score-${item.id}"
 
-
-
-
-
-
-<div class="info">
-
-
-<div>
-مرحله:
-
-<span id="level">
-1
-</span>
-
-/8
-
-</div>
-
-
-
-<div>
-
-ضریب:
-
-<span id="multi">
-1.27
-</span>
-
-x
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-<div class="profit-box">
-
-
-💰 مبلغ فعلی:
-
-<br>
-
-<b id="winAmount">
-0
-</b>
-
-تومان
-
-
-
-<br><br>
-
-
-📈 سود شما:
-
-<br>
-
-<b id="profit">
-0
-</b>
-
-تومان
-
-
-
-</div>
-
-
-
-
-
-
-
-<input 
-id="amount"
 type="number"
-placeholder="مبلغ ورود">
+
+placeholder="امتیاز جدید">
 
 
 
-<button onclick="startGame()">
-شروع بازی
+
+
+<br>
+
+
+<button onclick="changeScore('${item.id}')">
+
+تغییر امتیاز
+
 </button>
 
 
 
 
+<button onclick="removeUser('${item.id}')">
 
+حذف
 
-
-
-<div class="cards">
-
-
-<div class="card">
-🎴
-</div>
-
-
-<div class="card">
-🎴
-</div>
-
-
-<div class="card">
-🎴
-</div>
-
-
-<div class="card">
-🎴
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<h2 id="message"></h2>
-
-
-
-
-
-
-<button onclick="cashOut()">
-💰 برداشت
 </button>
 
 
 
-<button onclick="restart()">
-🔄 ریست
-</button>
-
-
-
-
 </div>
 
 
+`;
+
+
+
+});
+
+
+
+}
 
 
 
 
 
-<script type="module" src="script.js"></script>
 
 
-</body>
 
-  </html>
+
+window.changeScore = async function(id){
+
+
+
+let value =
+
+
+Number(
+
+document.getElementById(
+"score-"+id
+).value
+
+);
+
+
+
+
+if(!value){
+
+alert("امتیاز وارد کنید");
+
+return;
+
+}
+
+
+
+
+
+await updateDoc(
+
+doc(db,"users",id),
+
+{
+
+score:value
+
+}
+
+);
+
+
+
+alert("امتیاز تغییر کرد");
+
+
+loadUsers();
+
+
+
+};
+
+
+
+
+
+
+
+
+
+window.removeUser = async function(id){
+
+
+
+let ok = confirm(
+"حذف شود؟"
+);
+
+
+
+if(!ok)
+return;
+
+
+
+
+await deleteDoc(
+
+doc(db,"users",id)
+
+);
+
+
+
+alert("کاربر حذف شد");
+
+
+loadUsers();
+
+
+
+};
