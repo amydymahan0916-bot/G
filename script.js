@@ -9,273 +9,143 @@ const multipliers = [
     6.7
 ];
 
-
 let level = 0;
-let amount = 0;
 let currentMoney = 0;
-let playing = false;
+let baseMoney = 0;
+let bombIndex = 0;
+let gameActive = false;
+let selected = false;
 
 
 
-function openCardsGame(){
-
-    document.getElementById("home").classList.add("hidden");
-
-    document.getElementById("cardsGame").classList.remove("hidden");
-
+function openGame(){
+    document.getElementById("home").classList.add("hide");
+    document.getElementById("gamePage").classList.remove("hide");
+    startGame();
 }
-
 
 
 
 function startGame(){
 
-    let input =
-    Number(document.getElementById("amount").value);
+    baseMoney = Number(prompt("مبلغ ورود (حداقل 10):"));
 
-
-    if(input < 10){
-
-        alert("حداقل مبلغ ورود ۱۰ تومان است");
+    if(baseMoney < 10 || isNaN(baseMoney)){
+        alert("مبلغ نامعتبر!");
         return;
-
     }
 
-
-    amount = input;
-    currentMoney = input;
-
     level = 0;
+    currentMoney = baseMoney;
+    gameActive = true;
 
-    playing = true;
-
-
-    document.getElementById("message").innerHTML="";
-
+    updateUI();
     createCards();
-
-    update();
-
 }
-
 
 
 
 function createCards(){
 
+    selected = false;
 
-    let box =
-    document.getElementById("cards");
+    let cards = document.querySelectorAll(".card");
 
+    bombIndex = Math.floor(Math.random() * 4);
 
-    box.innerHTML="";
+    cards.forEach((card, i)=>{
 
+        card.classList.remove("flip","win","lose");
 
-    let bomb =
-    Math.floor(Math.random()*4);
+        card.onclick = function(){
 
+            if(!gameActive || selected) return;
 
+            selected = true;
 
-    for(let i=0;i<4;i++){
+            setTimeout(()=>{
 
+                if(i === bombIndex){
 
-        let card =
-        document.createElement("div");
-
-
-        card.className="card";
-
-
-        card.onclick=function(){
-
-
-            if(!playing) return;
-
-
-
-            if(i===bomb){
-
-                card.classList.add("lose");
-
-                document.getElementById("message").innerHTML =
-                "💣 بمب! بازی تمام شد";
-
-
-                currentMoney = 0;
-
-                playing=false;
-
-
-                showBomb(bomb);
-
-
-            }
-
-            else{
-
-
-                let multi =
-                multipliers[level];
-
-
-                currentMoney =
-                currentMoney * multi;
-
-
-
-                card.classList.add("win");
-
-
-
-                document.getElementById("message").innerHTML =
-                "💰 برد! ضریب "+multi+"x";
-
-
-
-                level++;
-
-
-
-                update();
-
-
-
-                if(level>=8){
-
+                    card.classList.add("flip","lose");
 
                     document.getElementById("message").innerHTML =
-                    "🏆 تمام مراحل کامل شد";
+                    "💣 باختی! همه پول از بین رفت";
 
+                    currentMoney = 0;
+                    gameActive = false;
 
-                    playing=false;
+                } else {
 
+                    card.classList.add("flip","win");
 
-                    return;
+                    let multi = multipliers[level];
+
+                    currentMoney *= multi;
+
+                    document.getElementById("message").innerHTML =
+                    "💰 بردی! ضریب " + multi + "x";
+
+                    level++;
+
+                    updateUI();
+
+                    if(level >= 8){
+
+                        document.getElementById("message").innerHTML =
+                        "🏆 تموم کردی!";
+
+                        gameActive = false;
+
+                    }
 
                 }
 
-
-
-                setTimeout(()=>{
-
-                    createCards();
-
-                },1000);
-
-
-            }
-
-
+            },300);
 
         };
 
+    });
+
+}
 
 
-        box.appendChild(card);
 
+function nextLevel(){
 
+    if(!gameActive){
+        alert("بازی تمام شده");
+        return;
     }
 
+    if(level >= 8) return;
 
-
-}
-
-
-
-
-
-function showBomb(index){
-
-
-    let cards =
-    document.querySelectorAll(".card");
-
-
-    cards[index].classList.add("lose");
-
+    createCards();
 
 }
-
-
-
-
-
-function update(){
-
-
-    document.getElementById("level").innerHTML =
-    Math.min(level+1,8);
-
-
-
-    document.getElementById("multiplier").innerHTML =
-    multipliers[level] || 6.7;
-
-
-
-    let percent =
-    (level/8)*100;
-
-
-    document.getElementById("bar").style.width =
-    percent+"%";
-
-
-}
-
 
 
 
 function cashOut(){
 
-
-    if(currentMoney>0){
-
-
-        alert(
-        "💰 مبلغ دریافت شده: "+
-        Math.floor(currentMoney)+
-        " تومان"
-        );
-
-
-        playing=false;
-
-
+    if(currentMoney <= 0){
+        alert("پولی برای برداشت نیست");
+        return;
     }
 
-    else{
+    alert("💰 برداشت شد: " + Math.floor(currentMoney) + " تومان");
 
-
-        alert("مبلغی برای برداشت نیست");
-
-
-    }
-
-
+    gameActive = false;
 }
 
 
 
+function updateUI(){
 
+    document.getElementById("level").innerText =
+    Math.min(level + 1, 8);
 
-function restart(){
+    document.getElementById("multi").innerText =
+    multipliers[level] || 6.7;
 
-
-    level=0;
-
-    currentMoney=0;
-
-    playing=false;
-
-
-    document.getElementById("cards").innerHTML="";
-
-
-    document.getElementById("message").innerHTML="";
-
-
-    update();
-
-
-        }
+              }
