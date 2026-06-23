@@ -1,0 +1,198 @@
+*{
+    box-sizing:border-box;
+    font-family:tahoma;
+}
+
+
+body{
+
+    margin:0;
+
+    background:#050505;
+
+    color:white;
+
+    text-align:center;
+
+}
+
+
+
+
+
+header{
+
+    width:100%;
+
+    padding:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    border-bottom:1px solid #333;
+
+}
+
+
+
+
+
+header h1{
+
+    color:#ffd700;
+
+    font-size:32px;
+
+    text-shadow:0 0 15px #ffd700;
+
+}
+
+
+
+
+
+button{
+
+    background:#ffd700;
+
+    color:#000;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:12px 25px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+.container{
+
+    padding:30px;
+
+}
+
+
+
+
+
+.container h2{
+
+    color:#ffd700;
+
+}
+
+
+
+
+
+
+.games{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:25px;
+
+}
+
+
+
+
+
+
+
+.game-card{
+
+    width:270px;
+
+    background:
+
+    linear-gradient(145deg,#181818,#080808);
+
+    border:2px solid #ffd700;
+
+    border-radius:25px;
+
+    padding:25px;
+
+    cursor:pointer;
+
+    transition:.4s;
+
+}
+
+
+
+
+
+.game-card:hover{
+
+    transform:translateY(-10px) scale(1.03);
+
+    box-shadow:0 0 30px #ffd700;
+
+}
+
+
+
+
+
+.game-image{
+
+    font-size:90px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+
+
+.game-card h3{
+
+    color:#ffd700;
+
+    font-size:25px;
+
+}
+
+
+
+
+
+.game-card p{
+
+    color:#ccc;
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+.game-card{
+
+    width:90%;
+
+}
+
+
+}
