@@ -3,18 +3,12 @@ import { db } from "./firebase-config.js";
 import {
     collection,
     addDoc,
-    getDocs,
-    doc,
-    updateDoc
+    getDocs
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
 
-
-
 let currentUser = "";
-
-let balance = 0;
 
 let level = 0;
 
@@ -45,8 +39,6 @@ const multipliers = [
 
 
 
-
-
 // ثبت کاربر
 
 window.registerUser = async function(){
@@ -59,7 +51,7 @@ window.registerUser = async function(){
 
     if(name.length < 2){
 
-        alert("اسم را درست وارد کنید");
+        alert("اسم را وارد کنید");
 
         return;
 
@@ -74,13 +66,27 @@ window.registerUser = async function(){
     await addDoc(
         collection(db,"users"),
         {
+
             name:name,
-            phone:"Unknown",
+
             bio:"عضو جدید",
+
             score:0,
-            createdAt:new Date()
+
+            date:new Date()
+
         }
     );
+
+
+
+    document.getElementById("loginBox")
+    .classList.add("hide");
+
+
+
+    document.getElementById("home")
+    .classList.remove("hide");
 
 
 
@@ -88,19 +94,7 @@ window.registerUser = async function(){
     "خوش آمدید "+name
     );
 
-
-
-    document.getElementById("loginBox")
-    .classList.add("hidden");
-
-
-
-    document.getElementById("home")
-    .classList.remove("hidden");
-
-
-
-}
+};
 
 
 
@@ -109,21 +103,20 @@ window.registerUser = async function(){
 
 
 
-
-// باز کردن بازی
+// ورود به بازی
 
 window.openGame=function(){
 
 
-document.getElementById("home")
-.classList.add("hidden");
+    document.getElementById("home")
+    .classList.add("hide");
 
 
-document.getElementById("game")
-.classList.remove("hidden");
+    document.getElementById("game")
+    .classList.remove("hide");
 
 
-}
+};
 
 
 
@@ -138,7 +131,8 @@ window.openAdmin=function(){
 
     location.href="admin.html";
 
-}
+};
+
 
 
 
@@ -158,7 +152,7 @@ window.goCharge=function(){
     );
 
 
-}
+};
 
 
 
@@ -174,43 +168,41 @@ window.startGame=function(){
 
 
 
-let amount =
-Number(
-document.getElementById("amount").value
-);
+    let amount =
+    Number(
+    document.getElementById("amount").value
+    );
 
 
 
-if(amount<10){
+    if(amount < 10){
 
-alert("حداقل ورود ۱۰ تومان");
+        alert("حداقل مبلغ ۱۰ تومان است");
 
-return;
+        return;
 
-}
-
-
-
-startAmount = amount;
-
-currentMoney = amount;
-
-level=0;
+    }
 
 
-gameActive=true;
+
+    startAmount = amount;
+
+    currentMoney = amount;
+
+    level = 0;
+
+    gameActive = true;
 
 
-createCards();
+    updateProfit();
+
+    updateInfo();
+
+    createCards();
 
 
-updateProfit();
 
-
-updateInfo();
-
-
-}
+};
 
 
 
@@ -223,113 +215,115 @@ updateInfo();
 function createCards(){
 
 
-selected=false;
+    selected=false;
 
 
-let cards =
-document.querySelectorAll(".card");
+    let cards =
+    document.querySelectorAll(".card");
 
 
 
-bombIndex =
-Math.floor(Math.random()*4);
+    bombIndex =
+    Math.floor(Math.random()*4);
 
 
 
-cards.forEach((card,index)=>{
+    cards.forEach((card,index)=>{
 
 
-card.innerHTML="🎴";
+        card.className="card";
 
-card.className="card";
+        card.innerHTML="🎴";
 
 
 
-card.onclick=function(){
+        card.onclick=function(){
 
 
 
-if(!gameActive || selected)
-return;
+            if(!gameActive || selected)
+            return;
 
 
 
-selected=true;
+            selected=true;
 
 
 
-if(index===bombIndex){
 
+            if(index===bombIndex){
 
-card.innerHTML="💣";
 
+                card.innerHTML="💣";
 
-card.classList.add("lose");
+                card.classList.add("lose");
 
 
-currentMoney=0;
+                currentMoney=0;
 
 
-document.getElementById("message")
-.innerText=
-"💥 بمب خورد!";
+                updateProfit();
 
 
-updateProfit();
 
+                document.getElementById("message")
+                .innerText=
+                "💥 بمب خورد!";
 
-gameActive=false;
 
+                gameActive=false;
 
 
-}
 
+            }
 
 
-else{
+            else{
 
 
-let multi =
-multipliers[level];
+                let multi =
+                multipliers[level];
 
 
-currentMoney =
-Math.floor(
-currentMoney*multi
-);
 
+                currentMoney =
+                Math.floor(
+                currentMoney * multi
+                );
 
 
-card.innerHTML="💰";
 
-card.classList.add("win");
+                card.innerHTML="💰";
 
+                card.classList.add("win");
 
 
-document.getElementById("message")
-.innerText=
-"بردی "+multi+"x";
 
+                document.getElementById("message")
+                .innerText =
+                "🎉 بردی | ضریب "+multi+"x";
 
 
-level++;
 
+                level++;
 
-updateProfit();
 
-updateInfo();
 
+                updateProfit();
 
+                updateInfo();
 
-}
 
 
+            }
 
-}
 
 
+        };
 
-});
+
+
+    });
 
 
 }
@@ -345,18 +339,21 @@ updateInfo();
 function updateProfit(){
 
 
-document.getElementById("winAmount")
-.innerText =
-currentMoney.toLocaleString();
+    document.getElementById("winAmount")
+    .innerText =
+    currentMoney.toLocaleString();
 
 
-document.getElementById("profit")
-.innerText =
-(currentMoney-startAmount)
-.toLocaleString();
+
+    document.getElementById("profit")
+    .innerText =
+    (currentMoney-startAmount)
+    .toLocaleString();
+
 
 
 }
+
 
 
 
@@ -368,18 +365,20 @@ document.getElementById("profit")
 function updateInfo(){
 
 
-document.getElementById("level")
-.innerText =
-Math.min(level+1,8);
+    document.getElementById("level")
+    .innerText =
+    Math.min(level+1,8);
 
 
 
-document.getElementById("multi")
-.innerText =
-multipliers[level] || 6.7;
+    document.getElementById("multi")
+    .innerText =
+    multipliers[level] || 6.7;
+
 
 
 }
+
 
 
 
@@ -391,20 +390,31 @@ multipliers[level] || 6.7;
 window.cashOut=function(){
 
 
-alert(
-"برداشت: "+
-currentMoney+
-" تومان"
-);
+    if(currentMoney<=0){
+
+        alert("مبلغی برای برداشت نیست");
+
+        return;
+
+    }
 
 
-currentMoney=0;
+
+    alert(
+    "💰 مبلغ برداشت: "+
+    currentMoney.toLocaleString()
+    +" تومان"
+    );
 
 
-gameActive=false;
+    currentMoney=0;
 
 
-}
+    gameActive=false;
+
+
+};
+
 
 
 
@@ -416,17 +426,23 @@ gameActive=false;
 window.restart=function(){
 
 
-level=0;
+    level=0;
 
-currentMoney=0;
+    currentMoney=0;
 
-gameActive=false;
-
-
-document.getElementById("message")
-.innerText="";
+    startAmount=0;
 
 
-updateProfit();
+    gameActive=false;
 
-    }
+
+
+    updateProfit();
+
+
+
+    document.getElementById("message")
+    .innerText="";
+
+
+};
