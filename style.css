@@ -10,103 +10,284 @@ body{
     text-align:center;
 }
 
+
 header{
-    padding:18px;
+
+    padding:20px;
+
     font-size:28px;
+
     color:#ffd700;
-    text-shadow:0 0 10px #ffd700;
-    border-bottom:1px solid #222;
+
+    text-shadow:0 0 15px #ffd700;
+
+    border-bottom:1px solid #333;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
 }
 
-/* HOME */
-.main-game{
-    width:220px;
-    margin:40px auto;
-    background:#111;
-    padding:20px;
-    border-radius:20px;
+
+
+/* دکمه ادمین */
+
+.admin-btn{
+
+    background:#b30000;
+
+    color:white;
+
+    padding:8px 15px;
+
+    border-radius:10px;
+
+    border:none;
+
     cursor:pointer;
-    border:1px solid #333;
-    transition:.3s;
+
+    font-size:14px;
+
 }
+
+
+
+/* صفحه اصلی */
+
+.main-game{
+
+    width:230px;
+
+    margin:40px auto;
+
+    background:#111;
+
+    border:1px solid #333;
+
+    border-radius:25px;
+
+    padding:20px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
 
 .main-game:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px #ffd700;
+
+    transform:scale(1.06);
+
+    box-shadow:0 0 30px #ffd700;
+
 }
+
+
 
 .main-game img{
-    width:120px;
+
+    width:130px;
+
 }
 
-/* HIDE */
-.hide{display:none;}
 
-/* INFO */
-.info{
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    font-size:18px;
+
+/* مخفی */
+
+.hide{
+
+    display:none;
+
 }
 
-/* WALLET */
+
+
+/* کیف پول */
+
 .wallet{
-    margin:10px;
-    color:#00ff99;
+
+    margin:20px;
+
     font-size:20px;
+
+    color:#00ff88;
+
 }
 
-/* BUTTON */
+
+
+/* دکمه ها */
+
 button{
-    padding:10px 18px;
-    margin:5px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
+
     background:#ffd700;
-    font-weight:bold;
-}
 
-/* INPUT */
-input{
-    padding:10px;
-    border-radius:10px;
     border:none;
-    text-align:center;
-}
 
-/* CARDS */
-.cards{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    margin-top:30px;
-}
+    border-radius:12px;
 
-.card{
-    width:90px;
-    height:130px;
-    background:#222;
-    border-radius:15px;
+    padding:12px 22px;
+
+    margin:7px;
+
     cursor:pointer;
-    transition:.4s;
+
+    font-weight:bold;
+
 }
 
-.card:hover{
-    transform:scale(1.1);
-}
 
-/* WIN LOSE */
-.win{background:#00c853 !important;}
-.lose{background:#d50000 !important;}
-
-#message{
-    color:#ffd700;
-    font-size:20px;
-    margin-top:15px;
-}
 
 .charge{
-    background:#ffcc00;
+
+    background:#00bfff;
+
+    color:white;
+
 }
+
+
+
+/* اطلاعات بازی */
+
+.info{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:40px;
+
+    font-size:18px;
+
+}
+
+
+
+/* ورودی */
+
+input{
+
+    padding:12px;
+
+    border-radius:12px;
+
+    border:none;
+
+    text-align:center;
+
+    width:220px;
+
+    margin:10px;
+
+}
+
+
+
+/* کارت ها */
+
+.cards{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-top:40px;
+
+}
+
+
+
+.card{
+
+    width:100px;
+
+    height:140px;
+
+    background:
+
+    linear-gradient(145deg,#222,#080808);
+
+    border-radius:20px;
+
+    border:2px solid #ffd700;
+
+    cursor:pointer;
+
+    transition:.5s;
+
+}
+
+
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+}
+
+
+
+/* حالت برد */
+
+.win{
+
+    background:#00c853!important;
+
+    box-shadow:0 0 30px #00c853;
+
+}
+
+
+
+/* حالت باخت */
+
+.lose{
+
+    background:#d50000!important;
+
+    box-shadow:0 0 30px red;
+
+}
+
+
+
+#message{
+
+    min-height:40px;
+
+    color:#ffd700;
+
+    font-size:22px;
+
+}
+
+
+
+/* موبایل */
+
+@media(max-width:600px){
+
+.cards{
+
+gap:8px;
+
+}
+
+
+.card{
+
+width:75px;
+
+height:120px;
+
+}
+
+    }
