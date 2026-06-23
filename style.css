@@ -1,351 +1,37 @@
-*{
-    box-sizing:border-box;
-    font-family:tahoma;
-}
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
+import { 
+    getFirestore 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-body{
 
-    margin:0;
 
-    background:#050505;
+const firebaseConfig = {
 
-    color:white;
+  apiKey: "AIzaSyD80aHdpmI2OZckgzd-V8RN-25fp8SE-N4",
 
-    text-align:center;
+  authDomain: "kairen-5e8b6.firebaseapp.com",
 
-}
+  projectId: "kairen-5e8b6",
 
+  storageBucket: "kairen-5e8b6.firebasestorage.app",
 
+  messagingSenderId: "1086037404316",
 
+  appId: "1:1086037404316:web:b709f5401da0e69d161b59",
 
-header{
+  measurementId: "G-6M1N9JWEC0"
 
-    display:flex;
+};
 
-    justify-content:space-between;
 
-    align-items:center;
 
-    padding:20px;
+const app = initializeApp(firebaseConfig);
 
-    border-bottom:1px solid #333;
 
-}
 
+const db = getFirestore(app);
 
 
-header h1{
 
-    color:#ffd700;
-
-    font-size:30px;
-
-    text-shadow:0 0 15px #ffd700;
-
-}
-
-
-
-
-
-button{
-
-    background:#ffd700;
-
-    color:#000;
-
-    border:none;
-
-    padding:12px 25px;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-    font-weight:bold;
-
-    margin:8px;
-
-}
-
-
-
-button:hover{
-
-    transform:scale(1.05);
-
-}
-
-
-
-
-.admin-btn{
-
-    background:#c00000;
-
-    color:white;
-
-}
-
-
-
-
-input{
-
-    width:250px;
-
-    padding:13px;
-
-    border-radius:12px;
-
-    border:none;
-
-    text-align:center;
-
-    margin:15px;
-
-    font-size:16px;
-
-}
-
-
-
-
-
-.hide{
-
-    display:none;
-
-}
-
-
-
-
-
-
-/* صفحه بازی ها */
-
-
-.game-box{
-
-    width:250px;
-
-    margin:40px auto;
-
-    background:#111;
-
-    border:2px solid #ffd700;
-
-    border-radius:25px;
-
-    padding:25px;
-
-    cursor:pointer;
-
-    transition:.4s;
-
-}
-
-
-
-.game-box:hover{
-
-    transform:scale(1.06);
-
-    box-shadow:0 0 30px #ffd700;
-
-}
-
-
-
-.card-icon{
-
-    font-size:80px;
-
-}
-
-
-
-
-
-.wallet{
-
-    margin:20px;
-
-    font-size:22px;
-
-    color:#00ff88;
-
-}
-
-
-
-
-
-.info{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:50px;
-
-    margin:20px;
-
-    font-size:20px;
-
-}
-
-
-
-
-
-.profit-box{
-
-    background:#111;
-
-    border:2px solid #ffd700;
-
-    width:300px;
-
-    margin:20px auto;
-
-    padding:20px;
-
-    border-radius:20px;
-
-    color:#ffd700;
-
-    font-size:18px;
-
-}
-
-
-
-
-.profit-box b{
-
-    color:#00ff88;
-
-    font-size:22px;
-
-}
-
-
-
-
-
-
-.cards{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:15px;
-
-    margin:35px auto;
-
-}
-
-
-
-
-
-.card{
-
-    width:100px;
-
-    height:140px;
-
-    background:
-
-    linear-gradient(145deg,#222,#050505);
-
-    border:2px solid #ffd700;
-
-    border-radius:20px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:40px;
-
-    cursor:pointer;
-
-    transition:.5s;
-
-}
-
-
-
-
-.card:hover{
-
-    transform:translateY(-10px);
-
-}
-
-
-
-
-
-.win{
-
-    background:#009933!important;
-
-    box-shadow:0 0 30px #00ff88;
-
-}
-
-
-
-
-
-.lose{
-
-    background:#990000!important;
-
-    box-shadow:0 0 30px red;
-
-}
-
-
-
-
-
-#message{
-
-    color:#ffd700;
-
-    min-height:40px;
-
-}
-
-
-
-
-@media(max-width:600px){
-
-
-.cards{
-
-    gap:8px;
-
-}
-
-
-.card{
-
-    width:75px;
-
-    height:120px;
-
-}
-
-
-    }
+export { db };
