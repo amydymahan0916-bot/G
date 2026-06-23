@@ -1,8 +1,30 @@
-const adminPassword = "1234";
+import { db } from "./firebase-config.js";
+
+
+import {
+
+collection,
+
+getDocs,
+
+doc,
+
+updateDoc
+
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
 
-function login(){
+
+
+const adminPassword = "9080";
+
+
+
+
+
+window.login=function(){
+
 
 
 let pass =
@@ -13,15 +35,19 @@ document.getElementById("password").value;
 if(pass === adminPassword){
 
 
+
 document.getElementById("login")
 .style.display="none";
+
 
 
 document.getElementById("panel")
 .classList.remove("hide");
 
 
-loadMembers();
+
+loadUsers();
+
 
 
 }
@@ -35,109 +61,156 @@ alert("رمز اشتباه است");
 }
 
 
+
 }
 
 
 
 
-function loadMembers(){
+
+
+
+
+
+async function loadUsers(){
+
 
 
 let box =
 document.getElementById("list");
 
 
+
 box.innerHTML="";
 
 
 
-members.forEach(user=>{
+const querySnapshot =
+await getDocs(
+collection(db,"users")
+);
+
+
+
+
+
+querySnapshot.forEach((item)=>{
+
+
+
+let user =
+item.data();
+
 
 
 box.innerHTML += `
 
+
 <div class="member">
 
 
-<h3>${user.name}</h3>
+<h3>
+👤 ${user.name}
+</h3>
 
 
 <p>
-📱 ${user.phone}
+📝 ${user.bio || "بدون بیو"}
 </p>
 
-
-<p>
-📝 ${user.bio}
-</p>
 
 
 <p>
 ⭐ امتیاز:
-${user.score}
+<span id="score-${item.id}">
+${user.score || 0}
+</span>
 </p>
 
 
 
 <input 
-id="score${user.id}"
+id="new-${item.id}"
 placeholder="امتیاز جدید">
 
 
 
-<button onclick="changeScore(${user.id})">
+<button onclick="changeScore('${item.id}')">
 
 تغییر امتیاز
 
 </button>
 
 
+
 </div>
 
+
 `;
+
 
 
 });
 
 
+
 }
 
 
 
 
-function changeScore(id){
+
+
+
+
+
+window.changeScore=async function(id){
+
 
 
 let value =
+
 Number(
-document.getElementById("score"+id).value
+
+document.getElementById(
+"new-"+id
+).value
+
 );
 
 
 
-let user =
-members.find(
-x=>x.id===id
+
+if(!value){
+
+alert("عدد وارد کن");
+
+return;
+
+}
+
+
+
+
+await updateDoc(
+
+doc(db,"users",id),
+
+{
+
+score:value
+
+}
+
 );
 
-
-
-if(value){
-
-
-user.score=value;
-
-
-saveMembers();
 
 
 alert("امتیاز تغییر کرد");
 
 
-loadMembers();
+loadUsers();
 
-
-}
 
 
 }
