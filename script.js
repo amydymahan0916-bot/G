@@ -1,4 +1,3 @@
-// ضریب های 8 مرحله
 const multipliers = [
     1.27,
     1.61,
@@ -12,29 +11,38 @@ const multipliers = [
 
 
 let level = 0;
+
 let currentMoney = 0;
+
+let startAmount = 0;
+
+let balance = Number(localStorage.getItem("balance")) || 0;
+
 let bombIndex = 0;
 
 let gameActive = false;
+
 let selected = false;
 
 
-// کیف پول
-let balance = Number(localStorage.getItem("balance")) || 0;
 
 
 // نمایش موجودی
+
 updateBalance();
+
+
 
 
 
 function updateBalance(){
 
-    let box = document.getElementById("balance");
+    let b = document.getElementById("balance");
 
-    if(box){
+    if(b){
 
-        box.innerText = balance;
+        b.innerText =
+        balance.toLocaleString();
 
     }
 
@@ -42,20 +50,29 @@ function updateBalance(){
 
 
 
-// رفتن به بازی
+
+
+
+
+// ورود به بازی
 
 function openGame(){
 
-    document.getElementById("home").classList.add("hide");
+    document.getElementById("home")
+    .classList.add("hidden");
 
-    document.getElementById("gamePage").classList.remove("hide");
+
+    document.getElementById("game")
+    .classList.remove("hidden");
 
 }
 
 
 
 
-// شارژ حساب روبیکا
+
+
+// شارژ حساب
 
 function goCharge(){
 
@@ -68,16 +85,22 @@ function goCharge(){
 
 
 
-// رفتن به پنل ادمین
+
+
+
+
+// پنل ادمین
 
 function openAdmin(){
 
-    window.open(
-    "admin.html",
-    "_blank"
-    );
+    window.location.href =
+    "admin.html";
 
 }
+
+
+
+
 
 
 
@@ -93,18 +116,9 @@ function startGame(){
 
     if(amount < 10 || isNaN(amount)){
 
-        alert("حداقل مبلغ ورود ۱۰ تومان است");
-
-        return;
-
-    }
-
-
-
-    if(balance < amount){
 
         alert(
-        "❌ موجودی شما کافی نیست\n\nلطفا به قسمت شارژ حساب مراجعه کنید"
+        "حداقل مبلغ ورود ۱۰ تومان است"
         );
 
         return;
@@ -113,31 +127,62 @@ function startGame(){
 
 
 
+
+
+    if(balance < amount){
+
+
+        alert(
+        "❌ موجودی شما کافی نیست\nلطفا به قسمت شارژ حساب مراجعه کنید"
+        );
+
+
+        return;
+
+    }
+
+
+
+
+
+
     balance -= amount;
+
 
     saveBalance();
 
 
+    updateBalance();
+
+
+
+
+
+    startAmount = amount;
 
     currentMoney = amount;
 
+
     level = 0;
+
 
     gameActive = true;
 
 
 
-    document.getElementById("message").innerText =
-    "";
+    updateProfit();
 
-
-
-    createCards();
 
     updateInfo();
 
 
+    createCards();
+
+
+
 }
+
+
 
 
 
@@ -161,7 +206,11 @@ function createCards(){
 
 
 
+
     cards.forEach((card,index)=>{
+
+
+        card.innerHTML="🎴";
 
 
         card.className="card";
@@ -172,11 +221,8 @@ function createCards(){
 
 
 
-            if(!gameActive || selected){
-
-                return;
-
-            }
+            if(!gameActive || selected)
+            return;
 
 
 
@@ -184,23 +230,27 @@ function createCards(){
 
 
 
-            if(index === bombIndex){
 
+
+            if(index === bombIndex){
 
 
                 card.classList.add("lose");
 
-
                 card.innerHTML="💣";
 
 
-
-                document.getElementById("message").innerText=
-                "💥 بمب خورد! بازی تمام شد";
+                document.getElementById("message")
+                .innerText=
+                "💥 بمب خورد! باختی";
 
 
 
                 currentMoney=0;
+
+
+                updateProfit();
+
 
                 gameActive=false;
 
@@ -209,7 +259,15 @@ function createCards(){
             }
 
 
+
+
             else{
+
+
+                card.classList.add("win");
+
+                card.innerHTML="💰";
+
 
 
                 let multi =
@@ -218,19 +276,17 @@ function createCards(){
 
 
                 currentMoney =
-                Math.floor(currentMoney * multi);
+                Math.floor(
+                currentMoney * multi
+                );
 
 
 
-                card.classList.add("win");
 
-
-                card.innerHTML="💰";
-
-
-
-                document.getElementById("message").innerText=
+                document.getElementById("message")
+                .innerText =
                 "🎉 بردی! ضریب "+multi+"x";
+
 
 
 
@@ -238,15 +294,21 @@ function createCards(){
 
 
 
+
+                updateProfit();
+
                 updateInfo();
 
 
 
-                if(level >= 8){
 
 
-                    document.getElementById("message").innerText=
-                    "🏆 همه مراحل رد شد";
+                if(level>=8){
+
+
+                    document.getElementById("message")
+                    .innerText=
+                    "🏆 تمام مراحل کامل شد";
 
 
                     gameActive=false;
@@ -254,17 +316,72 @@ function createCards(){
 
                 }
 
+
             }
+
 
 
         };
 
 
+
     });
 
 
+}
+
+
+
+
+
+
+
+
+// نمایش سود
+
+function updateProfit(){
+
+
+    let amount =
+    document.getElementById("winAmount");
+
+
+    let profit =
+    document.getElementById("profit");
+
+
+
+    if(amount){
+
+        amount.innerText =
+        currentMoney.toLocaleString()
+        +" تومان";
+
+    }
+
+
+
+
+
+    if(profit){
+
+
+        let p =
+        currentMoney-startAmount;
+
+
+
+        profit.innerText =
+        p.toLocaleString()
+        +" تومان";
+
+
+    }
+
 
 }
+
+
 
 
 
@@ -275,9 +392,13 @@ function createCards(){
 function cashOut(){
 
 
-    if(currentMoney <= 0){
+    if(currentMoney<=0){
 
-        alert("مبلغی برای برداشت وجود ندارد");
+
+        alert(
+        "مبلغی برای برداشت نیست"
+        );
+
 
         return;
 
@@ -285,7 +406,10 @@ function cashOut(){
 
 
 
+
+
     balance += currentMoney;
+
 
 
     saveBalance();
@@ -296,18 +420,28 @@ function cashOut(){
 
 
 
+
+
     alert(
-    "💰 برداشت شد: "+
-    currentMoney+
+    "💰 دریافت شد: "
+    +
+    currentMoney.toLocaleString()
+    +
     " تومان"
     );
 
 
 
+    currentMoney=0;
+
     gameActive=false;
 
 
+
 }
+
+
+
 
 
 
@@ -316,39 +450,36 @@ function cashOut(){
 
 function restart(){
 
+
     level=0;
 
     currentMoney=0;
 
+    startAmount=0;
+
     gameActive=false;
 
 
-    document.getElementById("message").innerText="";
 
+    updateProfit();
 
     updateInfo();
 
 
-}
 
+    document.getElementById("message")
+    .innerText="";
 
-
-
-// ذخیره کیف پول
-
-function saveBalance(){
-
-    localStorage.setItem(
-    "balance",
-    balance
-    );
 
 }
 
 
 
 
-// آپدیت اطلاعات
+
+
+
+// اطلاعات مرحله
 
 function updateInfo(){
 
@@ -378,5 +509,19 @@ function updateInfo(){
 
     }
 
+
+}
+
+
+
+
+
+
+function saveBalance(){
+
+    localStorage.setItem(
+    "balance",
+    balance
+    );
 
 }
