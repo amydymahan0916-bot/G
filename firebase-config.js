@@ -1,51 +1,14 @@
-import { db } from "./firebase-config.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-import {
-    collection,
-    addDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-window.registerUser = async function () {
-
-    let name = document.getElementById("username").value.trim();
-
-    if (name.length < 2) {
-        alert("لطفاً اسم خود را وارد کنید");
-        return;
-    }
-
-    try {
-
-        // 🔥 ذخیره در Firebase
-        await addDoc(collection(db, "users"), {
-            name: name,
-            bio: "عضو جدید",
-            score: 0,
-            createdAt: new Date()
-        });
-
-        localStorage.setItem("kairenUser", name);
-
-        alert("خوش آمدید " + name);
-
-        window.location.href = "games.html";
-
-    } catch (error) {
-
-        console.log("Firebase Error:", error);
-        alert("خطا در اتصال به دیتابیس ❌");
-
-    }
+const firebaseConfig = {
+    apiKey: "AIzaSyD80aHdpmI2OZckgzd-V8RN-25fp8SE-N4",
+    authDomain: "kairen-5e8b6.firebaseapp.com",
+    projectId: "kairen-5e8b6",
+    storageBucket: "kairen-5e8b6.appspot.com",
+    messagingSenderId: "1086037404316",
+    appId: "1:1086037404316:web:b709f5401da0e69d161b59"
 };
 
-window.openAdmin = function () {
-
-    let pass = prompt("رمز ادمین:");
-
-    if (pass === "1234") {
-        window.location.href = "admin.html";
-    } else {
-        alert("رمز اشتباه است");
-    }
-
-};
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
