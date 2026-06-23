@@ -1,39 +1,54 @@
-const password="1234";
+const adminPassword = "1234";
+
 
 
 function login(){
 
-let p=document.getElementById("pass").value;
+
+let pass =
+document.getElementById("password").value;
 
 
-if(p===password){
 
-document.getElementById("login").style.display="none";
-
-document.getElementById("panel").style.display="block";
+if(pass === adminPassword){
 
 
-loadAdmin();
+document.getElementById("login")
+.style.display="none";
+
+
+document.getElementById("panel")
+.classList.remove("hide");
+
+
+loadMembers();
 
 
 }
 
 else{
 
-alert("رمز اشتباه");
+
+alert("رمز اشتباه است");
+
 
 }
 
+
 }
 
 
 
 
-function loadAdmin(){
+function loadMembers(){
 
-let box=document.getElementById("members");
+
+let box =
+document.getElementById("list");
+
 
 box.innerHTML="";
+
 
 
 members.forEach(user=>{
@@ -43,27 +58,44 @@ box.innerHTML += `
 
 <div class="member">
 
+
 <h3>${user.name}</h3>
 
-<p>گوشی: ${user.phone}</p>
 
-<p>بیو: ${user.bio}</p>
+<p>
+📱 ${user.phone}
+</p>
 
-<p>امتیاز: ${user.score}</p>
+
+<p>
+📝 ${user.bio}
+</p>
 
 
-<input id="score${user.id}" 
+<p>
+⭐ امتیاز:
+${user.score}
+</p>
+
+
+
+<input 
+id="score${user.id}"
 placeholder="امتیاز جدید">
 
 
-<button onclick="editScore(${user.id})">
+
+<button onclick="changeScore(${user.id})">
+
 تغییر امتیاز
+
 </button>
 
 
 </div>
 
 `;
+
 
 });
 
@@ -73,23 +105,39 @@ placeholder="امتیاز جدید">
 
 
 
-function editScore(id){
+function changeScore(id){
 
 
-let value=
-Number(document.getElementById("score"+id).value);
+let value =
+Number(
+document.getElementById("score"+id).value
+);
+
 
 
 let user =
-members.find(x=>x.id===id);
+members.find(
+x=>x.id===id
+);
+
+
+
+if(value){
 
 
 user.score=value;
 
 
-alert("تغییر کرد");
+saveMembers();
 
 
-loadAdmin();
+alert("امتیاز تغییر کرد");
+
+
+loadMembers();
+
+
+}
+
 
 }
