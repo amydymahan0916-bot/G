@@ -9,30 +9,20 @@
 
 <body>
 
-<header>
-    𒆜𝗞𝗔𝗜𝗥𝗘𝗡
-</header>
+<header>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</header>
 
-
-<!-- صفحه اصلی -->
+<!-- HOME -->
 <section id="home">
+    <h2>بازی ها</h2>
 
-<h2>بازی ها</h2>
-
-<div class="main-game" onclick="openGame()">
-
-    <img src="assets/card.png">
-
-    <h2>🎴 4 کارت</h2>
-
-    <p>8 مرحله | ضریب بالا</p>
-
-</div>
-
+    <div class="main-game" onclick="openGame()">
+        <img src="assets/card.png">
+        <h3>🎴 4 کارت</h3>
+        <p>8 مرحله | ضریب تصادفی</p>
+    </div>
 </section>
 
-
-<!-- صفحه بازی -->
+<!-- GAME -->
 <section id="gamePage" class="hide">
 
 <h2>🎴 4 کارت</h2>
@@ -42,44 +32,30 @@
     <p>ضریب: <span id="multi">1.27</span>x</p>
 </div>
 
-<!-- 💳 کیف پول -->
 <div class="wallet">
-    💰 موجودی: <span id="balance">0</span> تومان
+💰 موجودی: <span id="balance">0</span>
 </div>
 
+<button onclick="goCharge()" class="charge">💳 شارژ حساب</button>
 
-<!-- شارژ حساب -->
-<button class="charge" onclick="goCharge()">
-💳 شارژ حساب
-</button>
-
-
-<!-- ورودی -->
 <div class="inputBox">
     <input id="amount" type="number" placeholder="مبلغ ورود (حداقل 10)">
     <button onclick="startGame()">شروع</button>
 </div>
 
-
-<!-- کارت‌ها -->
 <div class="cards">
-
-<div class="card"></div>
-<div class="card"></div>
-<div class="card"></div>
-<div class="card"></div>
-
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
 </div>
 
-
 <h2 id="message"></h2>
-
 
 <button onclick="cashOut()">برداشت</button>
 <button onclick="restart()">ریست</button>
 
 </section>
-
 
 <script src="script.js"></script>
 
