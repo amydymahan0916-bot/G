@@ -9,7 +9,9 @@ getDocs,
 
 doc,
 
-updateDoc
+updateDoc,
+
+deleteDoc
 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -17,18 +19,22 @@ updateDoc
 
 
 
-const adminPassword = "9080";
+const adminPassword = "1234";
 
 
 
 
 
-window.login=function(){
+
+
+window.login = function(){
 
 
 
 let pass =
+
 document.getElementById("password").value;
+
 
 
 
@@ -62,7 +68,7 @@ alert("رمز اشتباه است");
 
 
 
-}
+};
 
 
 
@@ -76,16 +82,20 @@ async function loadUsers(){
 
 
 
-let box =
+let list =
+
 document.getElementById("list");
 
 
 
-box.innerHTML="";
+list.innerHTML="";
 
 
 
-const querySnapshot =
+
+
+let users =
+
 await getDocs(
 collection(db,"users")
 );
@@ -94,16 +104,16 @@ collection(db,"users")
 
 
 
-querySnapshot.forEach((item)=>{
+users.forEach((item)=>{
 
 
 
-let user =
-item.data();
+let user = item.data();
 
 
 
-box.innerHTML += `
+
+list.innerHTML += `
 
 
 <div class="member">
@@ -114,6 +124,7 @@ box.innerHTML += `
 </h3>
 
 
+
 <p>
 📝 ${user.bio || "بدون بیو"}
 </p>
@@ -122,22 +133,43 @@ box.innerHTML += `
 
 <p>
 ⭐ امتیاز:
-<span id="score-${item.id}">
+
+<span>
 ${user.score || 0}
 </span>
+
 </p>
 
 
 
-<input 
-id="new-${item.id}"
+
+<input
+
+id="score-${item.id}"
+
+type="number"
+
 placeholder="امتیاز جدید">
 
+
+
+
+
+<br>
 
 
 <button onclick="changeScore('${item.id}')">
 
 تغییر امتیاز
+
+</button>
+
+
+
+
+<button onclick="removeUser('${item.id}')">
+
+حذف
 
 </button>
 
@@ -164,16 +196,17 @@ placeholder="امتیاز جدید">
 
 
 
-window.changeScore=async function(id){
+window.changeScore = async function(id){
 
 
 
 let value =
 
+
 Number(
 
 document.getElementById(
-"new-"+id
+"score-"+id
 ).value
 
 );
@@ -183,11 +216,12 @@ document.getElementById(
 
 if(!value){
 
-alert("عدد وارد کن");
+alert("امتیاز وارد کنید");
 
 return;
 
 }
+
 
 
 
@@ -213,4 +247,45 @@ loadUsers();
 
 
 
-}
+};
+
+
+
+
+
+
+
+
+
+window.removeUser = async function(id){
+
+
+
+let ok = confirm(
+"حذف شود؟"
+);
+
+
+
+if(!ok)
+return;
+
+
+
+
+await deleteDoc(
+
+doc(db,"users",id)
+
+);
+
+
+
+alert("کاربر حذف شد");
+
+
+loadUsers();
+
+
+
+};
