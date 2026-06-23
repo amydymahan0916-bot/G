@@ -1,37 +1,186 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
-import { 
-    getFirestore 
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
+*{
+    box-sizing:border-box;
+    font-family:tahoma;
+}
 
 
-const firebaseConfig = {
+body{
 
-  apiKey: "AIzaSyD80aHdpmI2OZckgzd-V8RN-25fp8SE-N4",
+    margin:0;
 
-  authDomain: "kairen-5e8b6.firebaseapp.com",
+    background:#050505;
 
-  projectId: "kairen-5e8b6",
+    color:white;
 
-  storageBucket: "kairen-5e8b6.firebasestorage.app",
+    min-height:100vh;
 
-  messagingSenderId: "1086037404316",
+    display:flex;
 
-  appId: "1:1086037404316:web:b709f5401da0e69d161b59",
+    flex-direction:column;
 
-  measurementId: "G-6M1N9JWEC0"
+    align-items:center;
 
-};
+}
 
 
 
-const app = initializeApp(firebaseConfig);
+
+
+header{
+
+    width:100%;
+
+    padding:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    border-bottom:1px solid #333;
+
+}
 
 
 
-const db = getFirestore(app);
+header h1{
+
+    margin:0;
+
+    color:#ffd700;
+
+    font-size:32px;
+
+    text-shadow:0 0 15px #ffd700;
+
+}
 
 
 
-export { db };
+
+
+.admin-btn{
+
+    background:#b00000;
+
+    color:white;
+
+}
+
+
+
+
+
+.container{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex:1;
+
+}
+
+
+
+
+
+.login-box{
+
+    width:330px;
+
+    background:#111;
+
+    border:1px solid #333;
+
+    border-radius:25px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:0 0 25px #000;
+
+}
+
+
+
+
+.login-box h2{
+
+    color:#ffd700;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+
+input{
+
+    width:100%;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    border:none;
+
+    outline:none;
+
+    text-align:center;
+
+    margin-bottom:15px;
+
+    font-size:16px;
+
+}
+
+
+
+
+
+button{
+
+    padding:13px 25px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#ffd700;
+
+    color:#000;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+button:hover{
+
+    transform:scale(1.05);
+
+}
+
+
+
+@media(max-width:600px){
+
+    header h1{
+
+        font-size:25px;
+
+    }
+
+}
