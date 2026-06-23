@@ -3,61 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</header>
+<header>
+𒆜𝗞𝗔𝗜𝗥𝗘𝗡
 
-<!-- HOME -->
+<button class="admin-btn" onclick="openAdmin()">
+🔐 ادمین
+</button>
+
+</header>
+
+
 <section id="home">
-    <h2>بازی ها</h2>
 
-    <div class="main-game" onclick="openGame()">
-        <img src="assets/card.png">
-        <h3>🎴 4 کارت</h3>
-        <p>8 مرحله | ضریب تصادفی</p>
-    </div>
+<h2>🎮 بازی ها</h2>
+
+
+<div class="main-game" onclick="openGame()">
+
+<img src="assets/card.png">
+
+<h3>🎴 4 کارت</h3>
+
+<p>
+8 مرحله | ضریب متغیر
+</p>
+
+</div>
+
+
 </section>
 
-<!-- GAME -->
+
+
+
+
 <section id="gamePage" class="hide">
+
 
 <h2>🎴 4 کارت</h2>
 
-<div class="info">
-    <p>مرحله: <span id="level">1</span>/8</p>
-    <p>ضریب: <span id="multi">1.27</span>x</p>
-</div>
 
 <div class="wallet">
-💰 موجودی: <span id="balance">0</span>
+
+💰 موجودی:
+<span id="balance">0</span>
+
 </div>
 
-<button onclick="goCharge()" class="charge">💳 شارژ حساب</button>
 
-<div class="inputBox">
-    <input id="amount" type="number" placeholder="مبلغ ورود (حداقل 10)">
-    <button onclick="startGame()">شروع</button>
+
+<button class="charge" onclick="goCharge()">
+💳 شارژ حساب
+</button>
+
+
+
+<div class="info">
+
+<p>
+مرحله:
+<span id="level">1</span>/8
+</p>
+
+
+<p>
+ضریب:
+<span id="multi">1.27</span>x
+</p>
+
+
 </div>
+
+
+
+<input id="amount"
+type="number"
+placeholder="مبلغ ورود">
+
+
+<button onclick="startGame()">
+شروع بازی
+</button>
+
+
+
 
 <div class="cards">
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
+
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+<div class="card"></div>
+
 </div>
+
+
 
 <h2 id="message"></h2>
 
-<button onclick="cashOut()">برداشت</button>
-<button onclick="restart()">ریست</button>
+
+
+<button onclick="cashOut()">
+💰 برداشت
+</button>
+
+
+<button onclick="restart()">
+🔄 ریست
+</button>
+
 
 </section>
 
+
+
+
+<script src="members.js"></script>
 <script src="script.js"></script>
+
 
 </body>
 </html>
