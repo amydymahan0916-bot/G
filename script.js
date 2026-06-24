@@ -14,27 +14,42 @@ addDoc
 
 
 
-const loginBtn =
-document.getElementById("loginBtn");
+document
+.getElementById("loginBtn")
+.onclick = async function(){
 
 
 
-loginBtn.onclick = async function(){
+let deviceInfo = {
 
 
-
-let name =
-document.getElementById("username").value.trim();
+name:"کاربر جدید",
 
 
+device:
+navigator.userAgent,
 
-if(name.length < 2){
 
-alert("اسم را وارد کن");
+screen:
+screen.width+"x"+screen.height,
 
-return;
 
-}
+language:
+navigator.language,
+
+
+score:0,
+
+
+bio:"عضو جدید",
+
+
+createdAt:
+new Date()
+
+};
+
+
 
 
 
@@ -45,30 +60,18 @@ await addDoc(
 
 collection(db,"users"),
 
-{
-
-name:name,
-
-score:0,
-
-bio:"عضو جدید",
-
-created:new Date()
-
-}
+deviceInfo
 
 );
+
 
 
 
 localStorage.setItem(
-"user",
-name
+"kairenUser",
+"کاربر جدید"
 );
 
-
-
-alert("ورود موفق");
 
 
 window.location.href="games.html";
@@ -84,7 +87,7 @@ console.log(error);
 
 
 alert(
-"خطای Firebase: "+error.message
+"خطا در ثبت کاربر"
 );
 
 
@@ -99,7 +102,11 @@ alert(
 
 
 
-document.getElementById("adminBtn").onclick=function(){
+
+
+document
+.getElementById("adminBtn")
+.onclick=function(){
 
 
 window.location.href="admin.html";
