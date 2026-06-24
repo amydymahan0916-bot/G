@@ -5,61 +5,50 @@ import {
 
 collection,
 
-getDocs,
+getDocs
 
-updateDoc,
-
-doc
-
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+} from 
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
 
 
-
-const adminPassword = "1234";
+const password="1234";
 
 
 
 
 
-
-window.loginAdmin = async function(){
-
+window.loginAdmin=function(){
 
 
-let pass = 
+
+let pass=
 document.getElementById("password").value;
 
 
 
-if(pass !== adminPassword){
-
-
-alert("رمز اشتباه است");
-
-return;
-
-
-}
-
-
-
+if(pass==password){
 
 
 document.getElementById("panel")
 .style.display="block";
 
 
-
 loadUsers();
 
 
 
+}else{
+
+
+alert("رمز اشتباه است");
+
+
+}
+
+
 };
-
-
-
 
 
 
@@ -70,67 +59,67 @@ async function loadUsers(){
 
 
 
-let box = 
+let box =
 document.getElementById("users");
-
 
 
 box.innerHTML="";
 
 
 
-let users = await getDocs(
+let data =
+await getDocs(
 collection(db,"users")
 );
 
 
 
+data.forEach(user=>{
 
 
-users.forEach((user)=>{
 
+let u=user.data();
 
-let data = user.data();
 
 
 
 box.innerHTML += `
 
+
 <div class="user">
 
 
 <h3>
-👤 ${data.name}
+👤 ${u.name}
 </h3>
 
 
 <p>
-📝 ${data.bio || "بدون بیو"}
+📱 دستگاه:
+${u.device}
+</p>
+
+
+<p>
+📐 صفحه:
+${u.screen}
+</p>
+
+
+<p>
+🌐 زبان:
+${u.language}
 </p>
 
 
 <p>
 ⭐ امتیاز:
-${data.score || 0}
+${u.score}
 </p>
 
 
-
-<input 
-id="score-${user.id}"
-type="number"
-placeholder="امتیاز جدید">
-
-
-
-<button onclick="changeScore('${user.id}')">
-
-تغییر امتیاز
-
-</button>
-
-
 </div>
+
 
 `;
 
@@ -139,69 +128,4 @@ placeholder="امتیاز جدید">
 });
 
 
-
-}
-
-
-
-
-
-
-
-
-
-window.changeScore = async function(id){
-
-
-
-let value = Number(
-
-document.getElementById(
-"score-"+id
-).value
-
-);
-
-
-
-
-
-await updateDoc(
-
-doc(db,"users",id),
-
-{
-
-score:value
-
-}
-
-);
-
-
-
-
-alert("امتیاز تغییر کرد");
-
-
-
-loadUsers();
-
-
-
-};
-
-
-
-
-
-
-
-
-window.backHome=function(){
-
-
-location.href="index.html";
-
-
-};
+  }
