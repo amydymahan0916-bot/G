@@ -1,11 +1,25 @@
-window.registerUser = function(){
+const db = window.db;
+
+import {
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+window.registerUser = async function () {
 
     let name = document.getElementById("username").value.trim();
 
-    if(name.length < 2){
+    if (name.length < 2) {
         alert("اسم را وارد کنید");
         return;
     }
+
+    await addDoc(collection(db, "users"), {
+        name: name,
+        bio: "عضو جدید",
+        score: 0,
+        date: new Date()
+    });
 
     localStorage.setItem("kairenUser", name);
 
@@ -14,15 +28,6 @@ window.registerUser = function(){
     window.location.href = "games.html";
 };
 
-
-window.openAdmin = function(){
-
-    let pass = prompt("رمز ادمین:");
-
-    if(pass === "1234"){
-        window.location.href = "admin.html";
-    }else{
-        alert("اشتباه است");
-    }
-
+window.openAdmin = function () {
+    window.location.href = "admin.html";
 };
