@@ -1,1 +1,295 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>𒆜𝗞𝗔𝗜𝗥𝗘𝗡</h1>
+
+<button class="admin-btn" onclick="openAdmin()">
+🔐 ادمین
+</button>
+
+</header>
+
+
+
+<!-- ورود کاربر -->
+
+<div id="loginBox">
+
+
+<h2>👤 ورود</h2>
+
+
+<input 
+id="username"
+type="text"
+placeholder="اسم خود را وارد کنید">
+
+
+<button onclick="registerUser()">
+ورود به سایت
+</button>
+
+
+</div>
+
+
+
+
+
+
+<!-- صفحه اصلی -->
+
+<div id="home" class="hide">
+
+
+<h2>
+🎮 بازی ها
+</h2>
+
+
+
+<div class="game-box" onclick="openGame()">
+
+
+
+<div class="card-icon">
+🎴
+</div>
+
+
+
+<h3>
+4 کارت
+</h3>
+
+
+
+<p>
+8 مرحله | ضریب متغیر
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- صفحه بازی -->
+
+<div id="game" class="hide">
+
+
+<h2>
+🎴 بازی 4 کارت
+</h2>
+
+
+
+
+<div class="wallet">
+
+💰 موجودی:
+
+<span id="balance">
+0
+</span>
+
+</div>
+
+
+
+
+<button onclick="goCharge()">
+💳 شارژ حساب
+</button>
+
+
+
+
+
+
+
+<div class="info">
+
+
+<div>
+مرحله:
+
+<span id="level">
+1
+</span>
+
+/8
+
+</div>
+
+
+
+<div>
+
+ضریب:
+
+<span id="multi">
+1.27
+</span>
+
+x
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="profit-box">
+
+
+💰 مبلغ فعلی:
+
+<br>
+
+<b id="winAmount">
+0
+</b>
+
+تومان
+
+
+
+<br><br>
+
+
+📈 سود شما:
+
+<br>
+
+<b id="profit">
+0
+</b>
+
+تومان
+
+
+
+</div>
+
+
+
+
+
+
+
+<input 
+id="amount"
+type="number"
+placeholder="مبلغ ورود">
+
+
+
+<button onclick="startGame()">
+شروع بازی
+</button>
+
+
+
+
+
+
+
+
+<div class="cards">
+
+
+<div class="card">
+🎴
+</div>
+
+
+<div class="card">
+🎴
+</div>
+
+
+<div class="card">
+🎴
+</div>
+
+
+<div class="card">
+🎴
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<h2 id="message"></h2>
+
+
+
+
+
+
+<button onclick="cashOut()">
+💰 برداشت
+</button>
+
+
+
+<button onclick="restart()">
+🔄 ریست
+</button>
+
+
+
+
+</div>
+
+
+
+
+
+
+
 <script type="module" src="script.js"></script>
+
+
+</body>
+
+  </html>
