@@ -1,128 +1,272 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
+let level = 0;
 
-<head>
+let money = 0;
 
-<meta charset="UTF-8">
+let playing = false;
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+let clicked = false;
 
-<title>4 CARD</title>
 
-<link rel="stylesheet" href="game.css">
 
-</head>
+const multipliers = [
 
+1.27,
 
-<body>
+1.61,
 
+2,
 
-<header>
+2.5,
 
-<h1>
-🎴 4 کارت
-</h1>
+3.2,
 
+4.1,
 
-<button onclick="back()">
-بازگشت
-</button>
+5.2,
 
+6.7
 
-</header>
+];
 
 
 
+const chances = [
 
+75,
 
-<div class="game-box">
+65,
 
+50,
 
-<div class="info">
+45,
 
-<p>
-مرحله:
-<span id="level">1</span>/8
-</p>
+40,
 
+35,
 
-<p>
-ضریب:
-<span id="multi">1.27</span>x
-</p>
+25,
 
+18
 
-</div>
+];
 
 
 
 
 
-<input 
-id="amount"
-type="number"
-placeholder="مبلغ ورود">
 
 
+function startGame(){
 
-<button onclick="startGame()">
-شروع بازی
-</button>
 
+let amount =
 
+Number(
+document.getElementById("amount").value
+);
 
 
 
+if(amount < 10){
 
-<div class="cards">
+alert("حداقل مبلغ ۱۰ تومان است");
 
-
-<div class="card">🎴</div>
-
-<div class="card">🎴</div>
-
-<div class="card">🎴</div>
-
-<div class="card">🎴</div>
-
-
-</div>
-
-
-
-
-
-<h2 id="message"></h2>
-
-
-
-
-<button onclick="cashOut()">
-💰 برداشت
-</button>
-
-
-
-</div>
-
-
-
-
-
-<script src="game.js"></script>
-
-
-<script>
-
-function back(){
-
-location.href="games.html";
+return;
 
 }
 
-</script>
 
 
-</body>
+money = amount;
 
-</html>
+level = 0;
+
+playing = true;
+
+
+
+resetCards();
+
+
+update();
+
+
+
+}
+
+
+
+
+
+
+
+
+function resetCards(){
+
+
+clicked=false;
+
+
+document.querySelectorAll(".card")
+.forEach(card=>{
+
+
+card.innerHTML="🎴";
+
+card.className="card";
+
+
+card.onclick=()=>chooseCard(card);
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+function chooseCard(card){
+
+
+
+if(!playing || clicked)
+return;
+
+
+clicked=true;
+
+
+
+let chance = chances[level];
+
+let random = Math.floor(Math.random()*100)+1;
+
+
+
+
+
+if(random <= chance){
+
+
+
+card.innerHTML="💰";
+
+card.classList.add("win");
+
+
+
+money = Math.floor(
+
+money * multipliers[level]
+
+);
+
+
+
+level++;
+
+
+
+document.getElementById("message")
+.innerText =
+"بردی ×"+multipliers[level-1];
+
+
+
+if(level < 8){
+
+setTimeout(resetCards,800);
+
+}
+
+
+
+}else{
+
+
+
+card.innerHTML="💣";
+
+card.classList.add("lose");
+
+
+money=0;
+
+playing=false;
+
+
+
+document.getElementById("message")
+.innerText="💥 بمب خورد!";
+
+
+
+}
+
+
+
+update();
+
+
+}
+
+
+
+
+
+
+
+
+function update(){
+
+
+document.getElementById("level")
+.innerText =
+Math.min(level+1,8);
+
+
+
+document.getElementById("multi")
+.innerText =
+multipliers[level] || 6.7;
+
+
+
+}
+
+
+
+
+
+
+
+
+function cashOut(){
+
+
+if(money<=0){
+
+alert("مبلغی وجود ندارد");
+
+return;
+
+}
+
+
+
+alert(
+"مبلغ برداشت: "+money
+);
+
+
+
+playing=false;
+
+
+  }
