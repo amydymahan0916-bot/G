@@ -1,29 +1,19 @@
 import { db } from "./firebase-config.js";
 
 import {
-
 collection,
-
 addDoc
-
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
-
-
-// ورود کاربر
-
-document
-.getElementById("loginBtn")
-.addEventListener("click", async ()=>{
+document.getElementById("loginBtn").onclick = async ()=>{
 
 
 let name =
 document.getElementById("username").value.trim();
 
 
-
-if(name.length < 2){
+if(!name){
 
 alert("اسم را وارد کنید");
 
@@ -36,21 +26,17 @@ return;
 try{
 
 
-await addDoc(
-collection(db,"users"),
-{
+await addDoc(collection(db,"users"),{
 
 name:name,
 
-bio:"عضو جدید",
-
 score:0,
 
-createdAt:new Date()
+bio:"عضو جدید",
 
-}
+time:new Date()
 
-);
+});
 
 
 
@@ -61,39 +47,26 @@ name
 
 
 
-window.location.href="games.html";
+location.href="games.html";
 
 
+}catch(e){
 
-}
 
-catch(error){
+console.log(e);
 
-console.log(error);
-
-alert("خطا در اتصال به سرور");
+alert("خطا در اتصال Firebase");
 
 }
 
 
 
-});
+};
 
 
 
+document.getElementById("adminBtn").onclick=()=>{
 
+location.href="admin.html";
 
-
-
-
-// رفتن به پنل ادمین
-
-document
-.getElementById("adminBtn")
-.addEventListener("click", ()=>{
-
-
-window.location.href="admin.html";
-
-
-});
+};
