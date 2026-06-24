@@ -7,11 +7,9 @@ collection,
 
 getDocs,
 
-doc,
-
 updateDoc,
 
-deleteDoc
+doc
 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -26,45 +24,35 @@ const adminPassword = "1234";
 
 
 
-
-window.login = function(){
-
+window.loginAdmin = async function(){
 
 
-let pass =
 
+let pass = 
 document.getElementById("password").value;
 
 
 
-
-if(pass === adminPassword){
-
-
-
-document.getElementById("login")
-.style.display="none";
-
-
-
-document.getElementById("panel")
-.classList.remove("hide");
-
-
-
-loadUsers();
-
-
-
-}
-
-else{
+if(pass !== adminPassword){
 
 
 alert("رمز اشتباه است");
 
+return;
+
 
 }
+
+
+
+
+
+document.getElementById("panel")
+.style.display="block";
+
+
+
+loadUsers();
 
 
 
@@ -82,21 +70,16 @@ async function loadUsers(){
 
 
 
-let list =
-
-document.getElementById("list");
-
-
-
-list.innerHTML="";
+let box = 
+document.getElementById("users");
 
 
 
+box.innerHTML="";
 
 
-let users =
 
-await getDocs(
+let users = await getDocs(
 collection(db,"users")
 );
 
@@ -104,79 +87,50 @@ collection(db,"users")
 
 
 
-users.forEach((item)=>{
+users.forEach((user)=>{
+
+
+let data = user.data();
 
 
 
-let user = item.data();
+box.innerHTML += `
 
-
-
-
-list.innerHTML += `
-
-
-<div class="member">
+<div class="user">
 
 
 <h3>
-👤 ${user.name}
+👤 ${data.name}
 </h3>
 
 
-
 <p>
-📝 ${user.bio || "بدون بیو"}
+📝 ${data.bio || "بدون بیو"}
 </p>
-
 
 
 <p>
 ⭐ امتیاز:
-
-<span>
-${user.score || 0}
-</span>
-
+${data.score || 0}
 </p>
 
 
 
-
-<input
-
-id="score-${item.id}"
-
+<input 
+id="score-${user.id}"
 type="number"
-
 placeholder="امتیاز جدید">
 
 
 
-
-
-<br>
-
-
-<button onclick="changeScore('${item.id}')">
+<button onclick="changeScore('${user.id}')">
 
 تغییر امتیاز
 
 </button>
 
 
-
-
-<button onclick="removeUser('${item.id}')">
-
-حذف
-
-</button>
-
-
-
 </div>
-
 
 `;
 
@@ -200,27 +154,13 @@ window.changeScore = async function(id){
 
 
 
-let value =
-
-
-Number(
+let value = Number(
 
 document.getElementById(
 "score-"+id
 ).value
 
 );
-
-
-
-
-if(!value){
-
-alert("امتیاز وارد کنید");
-
-return;
-
-}
 
 
 
@@ -240,7 +180,9 @@ score:value
 
 
 
+
 alert("امتیاز تغییر کرد");
+
 
 
 loadUsers();
@@ -256,36 +198,10 @@ loadUsers();
 
 
 
-
-window.removeUser = async function(id){
-
+window.backHome=function(){
 
 
-let ok = confirm(
-"حذف شود؟"
-);
-
-
-
-if(!ok)
-return;
-
-
-
-
-await deleteDoc(
-
-doc(db,"users",id)
-
-);
-
-
-
-alert("کاربر حذف شد");
-
-
-loadUsers();
-
+location.href="index.html";
 
 
 };
