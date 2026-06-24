@@ -1,77 +1,31 @@
 import { db } from "./firebase-config.js";
 
-
 import {
-
 collection,
-
 addDoc
-
-} from 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
+document.getElementById("loginBtn").onclick = async function(){
 
-
-
-document
-.getElementById("loginBtn")
-.onclick = async function(){
-
-
-
-let deviceInfo = {
-
-
-name:"کاربر جدید",
-
-
-device:
-navigator.userAgent,
-
-
-screen:
-screen.width+"x"+screen.height,
-
-
-language:
-navigator.language,
-
-
-score:0,
-
-
-bio:"عضو جدید",
-
-
-createdAt:
-new Date()
-
-};
-
-
-
+alert("دکمه ورود کلیک شد");
 
 
 try{
 
 
 await addDoc(
-
 collection(db,"users"),
-
-deviceInfo
-
+{
+name:"کاربر جدید",
+score:0,
+createdAt:new Date()
+}
 );
 
 
 
-
-localStorage.setItem(
-"kairenUser",
-"کاربر جدید"
-);
-
+alert("کاربر ثبت شد");
 
 
 window.location.href="games.html";
@@ -83,16 +37,12 @@ window.location.href="games.html";
 catch(error){
 
 
+alert(error.message);
+
 console.log(error);
 
 
-alert(
-"خطا در ثبت کاربر"
-);
-
-
 }
-
 
 
 };
@@ -100,16 +50,8 @@ alert(
 
 
 
-
-
-
-
-document
-.getElementById("adminBtn")
-.onclick=function(){
-
+document.getElementById("adminBtn").onclick=function(){
 
 window.location.href="admin.html";
-
 
 };
