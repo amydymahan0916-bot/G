@@ -1,21 +1,36 @@
 import { db } from "./firebase-config.js";
 
+
 import {
+
 collection,
+
 addDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+} from 
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
-document.getElementById("loginBtn").onclick = async ()=>{
+
+
+
+const loginBtn =
+document.getElementById("loginBtn");
+
+
+
+loginBtn.onclick = async function(){
+
 
 
 let name =
 document.getElementById("username").value.trim();
 
 
-if(!name){
 
-alert("اسم را وارد کنید");
+if(name.length < 2){
+
+alert("اسم را وارد کن");
 
 return;
 
@@ -26,7 +41,11 @@ return;
 try{
 
 
-await addDoc(collection(db,"users"),{
+await addDoc(
+
+collection(db,"users"),
+
+{
 
 name:name,
 
@@ -34,28 +53,40 @@ score:0,
 
 bio:"عضو جدید",
 
-time:new Date()
+created:new Date()
 
-});
+}
+
+);
 
 
 
 localStorage.setItem(
-"kairenUser",
+"user",
 name
 );
 
 
 
-location.href="games.html";
+alert("ورود موفق");
 
 
-}catch(e){
+window.location.href="games.html";
 
 
-console.log(e);
 
-alert("خطا در اتصال Firebase");
+}
+
+catch(error){
+
+
+console.log(error);
+
+
+alert(
+"خطای Firebase: "+error.message
+);
+
 
 }
 
@@ -65,8 +96,13 @@ alert("خطا در اتصال Firebase");
 
 
 
-document.getElementById("adminBtn").onclick=()=>{
 
-location.href="admin.html";
+
+
+document.getElementById("adminBtn").onclick=function(){
+
+
+window.location.href="admin.html";
+
 
 };
