@@ -1,30 +1,41 @@
 *{
-    box-sizing:border-box;
-    font-family:tahoma;
+
+box-sizing:border-box;
+
+font-family:tahoma;
+
 }
+
 
 
 body{
 
-    margin:0;
+margin:0;
 
-    background:#050505;
+background:#050505;
 
-    color:white;
+color:white;
 
-    text-align:center;
+text-align:center;
 
 }
-
 
 
 
 
 header{
 
-    padding:25px;
+width:100%;
 
-    border-bottom:1px solid #333;
+padding:20px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+border-bottom:1px solid #333;
 
 }
 
@@ -32,11 +43,27 @@ header{
 
 header h1{
 
-    color:#ffd700;
+color:#ffd700;
 
-    font-size:32px;
+text-shadow:0 0 15px #ffd700;
 
-    text-shadow:0 0 15px #ffd700;
+}
+
+
+
+button{
+
+background:#ffd700;
+
+border:none;
+
+padding:12px 25px;
+
+border-radius:12px;
+
+font-weight:bold;
+
+cursor:pointer;
 
 }
 
@@ -44,51 +71,40 @@ header h1{
 
 
 
-h2{
+.admin-box{
 
-    color:#ffd700;
+width:90%;
+
+max-width:450px;
+
+margin:60px auto;
+
+background:#111;
+
+border:1px solid #333;
+
+border-radius:25px;
+
+padding:25px;
 
 }
-
 
 
 
 
 input{
 
-    width:260px;
+width:100%;
 
-    padding:13px;
+padding:14px;
 
-    border:none;
+border:none;
 
-    border-radius:12px;
+border-radius:12px;
 
-    margin:10px;
+text-align:center;
 
-    text-align:center;
-
-}
-
-
-
-
-
-button{
-
-    background:#ffd700;
-
-    color:black;
-
-    border:none;
-
-    border-radius:12px;
-
-    padding:12px 25px;
-
-    cursor:pointer;
-
-    font-weight:bold;
+margin:15px 0;
 
 }
 
@@ -96,76 +112,26 @@ button{
 
 
 
-button:hover{
+#users{
 
-    transform:scale(1.05);
-
-}
-
-
-
-
-
-#list{
-
-    display:flex;
-
-    justify-content:center;
-
-    flex-wrap:wrap;
-
-    gap:20px;
-
-    padding:20px;
+margin-top:20px;
 
 }
 
 
 
+.user{
 
+background:#1a1a1a;
 
-.member{
+border:1px solid #444;
 
-    background:#111;
+border-radius:15px;
 
-    width:320px;
+padding:15px;
 
-    padding:20px;
+margin:10px 0;
 
-    border-radius:25px;
-
-    border:1px solid #333;
-
-}
-
-
-
-
-
-.member h3{
-
-    color:#00ff88;
-
-}
-
-
-
-
-
-.member span{
-
-    color:#ffd700;
-
-    font-weight:bold;
-
-}
-
-
-
-
-
-.hide{
-
-    display:none;
+color:#ffd700;
 
 }
