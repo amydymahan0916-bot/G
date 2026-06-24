@@ -1,297 +1,128 @@
-let level = 0;
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 
-let currentMoney = 0;
+<head>
 
-let startAmount = 0;
+<meta charset="UTF-8">
 
-let gameActive = false;
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-let selected = false;
+<title>4 CARD</title>
 
-let bombIndex = 0;
+<link rel="stylesheet" href="game.css">
+
+</head>
 
 
+<body>
 
-const multipliers = [
 
-1.27,
+<header>
 
-1.61,
+<h1>
+🎴 4 کارت
+</h1>
 
-2,
 
-2.5,
+<button onclick="back()">
+بازگشت
+</button>
 
-3.2,
 
-4.1,
-
-5.2,
-
-6.7
-
-];
-
+</header>
 
 
 
 
 
-
-window.startGame = function(){
-
+<div class="game-box">
 
 
-let amount =
+<div class="info">
 
-Number(document.getElementById("amount").value);
+<p>
+مرحله:
+<span id="level">1</span>/8
+</p>
+
+
+<p>
+ضریب:
+<span id="multi">1.27</span>x
+</p>
+
+
+</div>
 
 
 
-if(amount < 10){
 
-alert("حداقل مبلغ ۱۰ تومان است");
 
-return;
+<input 
+id="amount"
+type="number"
+placeholder="مبلغ ورود">
+
+
+
+<button onclick="startGame()">
+شروع بازی
+</button>
+
+
+
+
+
+
+<div class="cards">
+
+
+<div class="card">🎴</div>
+
+<div class="card">🎴</div>
+
+<div class="card">🎴</div>
+
+<div class="card">🎴</div>
+
+
+</div>
+
+
+
+
+
+<h2 id="message"></h2>
+
+
+
+
+<button onclick="cashOut()">
+💰 برداشت
+</button>
+
+
+
+</div>
+
+
+
+
+
+<script src="game.js"></script>
+
+
+<script>
+
+function back(){
+
+location.href="games.html";
 
 }
 
+</script>
 
 
-startAmount = amount;
+</body>
 
-currentMoney = amount;
-
-level = 0;
-
-gameActive = true;
-
-
-
-updateUI();
-
-createCards();
-
-};
-
-
-
-
-
-
-
-
-
-function createCards(){
-
-
-
-selected = false;
-
-
-
-let cards = document.querySelectorAll(".card");
-
-
-
-bombIndex = Math.floor(Math.random()*4);
-
-
-
-
-
-cards.forEach((card,index)=>{
-
-
-
-card.innerHTML = "🎴";
-
-card.className = "card";
-
-
-
-card.onclick = function(){
-
-
-
-if(!gameActive || selected) return;
-
-
-
-selected = true;
-
-
-
-
-
-if(index === bombIndex){
-
-
-
-card.innerHTML = "💣";
-
-card.style.background = "#900";
-
-
-
-currentMoney = 0;
-
-
-
-gameActive = false;
-
-
-
-document.getElementById("message")
-.innerText = "💥 باختی!";
-
-
-
-updateUI();
-
-
-
-}else{
-
-
-
-let multi = multipliers[level];
-
-
-
-currentMoney = Math.floor(currentMoney * multi);
-
-
-
-card.innerHTML = "💰";
-
-card.style.background = "#0a0";
-
-
-
-level++;
-
-
-
-document.getElementById("message")
-.innerText = "بردی ×" + multi;
-
-
-
-updateUI();
-
-
-
-}
-
-
-
-};
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-
-
-function updateUI(){
-
-
-
-document.getElementById("balance").innerText = currentMoney;
-
-
-
-document.getElementById("level").innerText = Math.min(level+1,8);
-
-
-
-document.getElementById("multi").innerText = multipliers[level] || 6.7;
-
-
-
-document.getElementById("message").style.color = "#ffd700";
-
-
-
-}
-
-
-
-
-
-
-
-
-
-window.cashOut = function(){
-
-
-
-if(currentMoney <= 0){
-
-alert("هیچی برای برداشت نیست");
-
-return;
-
-}
-
-
-
-alert("برداشت: " + currentMoney);
-
-
-
-gameActive = false;
-
-
-
-currentMoney = 0;
-
-
-
-updateUI();
-
-
-
-};
-
-
-
-
-
-
-
-
-
-window.restart = function(){
-
-
-
-level = 0;
-
-currentMoney = 0;
-
-gameActive = false;
-
-
-
-document.getElementById("message").innerText = "";
-
-
-
-updateUI();
-
-
-
-};
+</html>
